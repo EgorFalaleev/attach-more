@@ -1,3 +1,5 @@
+using Runtime.Infrastructure.States;
+using Runtime.Infrastructure.States.StateMachine;
 using Zenject;
 
 namespace Runtime.Infrastructure
@@ -6,11 +8,29 @@ namespace Runtime.Infrastructure
     {
         public override void InstallBindings()
         {
+            BindSelf();
+            BindStates();
+            BindStateMachine();
+        }
+
+        private void BindStates()
+        {
+            Container.BindInterfacesAndSelfTo<BootstrapState>();
+        }
+
+        private void BindSelf()
+        {
             Container.BindInterfacesTo<BootstrapInstaller>().FromInstance(this).AsSingle();
+        }
+
+        private void BindStateMachine()
+        {
+            Container.BindInterfacesAndSelfTo<GameStateMachine>();
         }
 
         public void Initialize()
         {
+            Container.Resolve<IGameStateMachine>().Enter<BootstrapState>();
         }
     }
 }
