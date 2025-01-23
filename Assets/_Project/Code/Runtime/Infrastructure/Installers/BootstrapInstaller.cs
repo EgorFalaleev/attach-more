@@ -1,5 +1,6 @@
 using Runtime.Infrastructure.States;
 using Runtime.Infrastructure.States.StateMachine;
+using Runtime.Services;
 using Zenject;
 
 namespace Runtime.Infrastructure
@@ -11,6 +12,12 @@ namespace Runtime.Infrastructure
             BindSelf();
             BindStates();
             BindStateMachine();
+            BindServices();
+        }
+
+        public void Initialize()
+        {
+            Container.Resolve<IGameStateMachine>().Enter<BootstrapState>();
         }
 
         private void BindStates()
@@ -28,9 +35,9 @@ namespace Runtime.Infrastructure
             Container.BindInterfacesAndSelfTo<GameStateMachine>();
         }
 
-        public void Initialize()
+        private void BindServices()
         {
-            Container.Resolve<IGameStateMachine>().Enter<BootstrapState>();
+            Container.BindInterfacesAndSelfTo<InputService>();
         }
     }
 }
