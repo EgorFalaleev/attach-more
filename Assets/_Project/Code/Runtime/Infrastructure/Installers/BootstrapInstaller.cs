@@ -22,7 +22,7 @@ namespace Runtime.Infrastructure
 
         private void BindStates()
         {
-            Container.BindInterfacesAndSelfTo<BootstrapState>();
+            Container.BindInterfacesAndSelfTo<BootstrapState>().AsSingle();
         }
 
         private void BindSelf()
@@ -32,12 +32,12 @@ namespace Runtime.Infrastructure
 
         private void BindStateMachine()
         {
-            Container.BindInterfacesAndSelfTo<GameStateMachine>();
+            Container.BindInterfacesAndSelfTo<GameStateMachine>().AsSingle();
         }
 
         private void BindServices()
         {
-            Container.BindInterfacesAndSelfTo<InputService>();
+            Container.BindInterfacesAndSelfTo<InputService>().AsSingle();
         }
     }
 }
