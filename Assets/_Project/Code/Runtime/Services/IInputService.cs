@@ -1,9 +1,12 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Runtime.Services
 {
     public interface IInputService
     {
-        Vector2 MoveDirection { get; }
+        Vector3 MoveDirection { get; }
+        void Enable();
+        void Disable();
     }
 }
