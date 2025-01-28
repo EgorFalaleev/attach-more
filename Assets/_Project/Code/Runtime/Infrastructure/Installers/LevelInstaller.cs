@@ -1,4 +1,5 @@
-﻿using Zenject;
+﻿using Runtime.Gameplay.Attachment;
+using Zenject;
 
 namespace Runtime.Infrastructure.Installers
 {
@@ -6,6 +7,7 @@ namespace Runtime.Infrastructure.Installers
     {
         public override void InstallBindings()
         {
+            Container.BindInterfacesAndSelfTo<AttachmentController>().AsSingle().NonLazy();
         }
     }
 }
