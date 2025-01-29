@@ -1,18 +1,24 @@
+using Runtime.Gameplay.Weapon;
+using Runtime.Gameplay.Weapon.Factory;
 using Runtime.Infrastructure.States;
 using Runtime.Infrastructure.States.StateMachine;
 using Runtime.Services;
+using UnityEngine;
 using Zenject;
 
-namespace Runtime.Infrastructure
+namespace Runtime.Infrastructure.Installers
 {
     public class BootstrapInstaller : MonoInstaller, IInitializable
     {
+        [SerializeField] private WeaponView _weaponPrefab;
+        
         public override void InstallBindings()
         {
             BindSelf();
             BindStates();
             BindStateMachine();
             BindServices();
+            BindFactories();
         }
 
         public void Initialize()
@@ -38,6 +44,11 @@ namespace Runtime.Infrastructure
         private void BindServices()
         {
             Container.BindInterfacesAndSelfTo<InputService>().AsSingle();
+        }
+
+        private void BindFactories()
+        {
+            Container.Bind<IWeaponFactory>().To<WeaponFactory>().AsSingle().WithArguments(_weaponPrefab).NonLazy();
         }
     }
 }
