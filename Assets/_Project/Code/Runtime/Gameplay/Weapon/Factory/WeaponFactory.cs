@@ -9,7 +9,6 @@ namespace Runtime.Gameplay.Weapon.Factory
         public WeaponFactory(WeaponView weaponView)
         {
             _weaponView = weaponView;
-            CreateWeapon(new Vector3(4.5f, 1f, 3.5f));
         }
         
         public void CreateWeapon(Vector3 position)
