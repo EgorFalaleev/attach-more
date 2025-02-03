@@ -2,7 +2,8 @@
 {
     public class AttachableTree
     {
-        private AttachableNode _root;
+        private readonly AttachableNode _root;
+        public AttachableNode Root => _root;
         
         public AttachableTree(AttachableNode root)
         {

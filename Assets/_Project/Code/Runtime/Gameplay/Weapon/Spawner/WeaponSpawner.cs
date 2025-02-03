@@ -10,7 +10,7 @@ namespace Runtime.Gameplay.Weapon.Spawner
         private readonly IWeaponFactory _weaponFactory;
         private readonly Transform _playerTransform;
 
-        private float _spawnCooldown = 1f;
+        private float _spawnCooldown = 5f;
         private float _timeFromLastSpawn;
         private float _spawnRadius = 5f;
         
@@ -18,12 +18,10 @@ namespace Runtime.Gameplay.Weapon.Spawner
         {
             _weaponFactory = weaponFactory;
             _playerTransform = playerView.transform;
-            Debug.Log("ctor");
         }
         
         public void Tick()
         {
-            Debug.Log("Tick");
             _timeFromLastSpawn += Time.deltaTime;
 
             if (_timeFromLastSpawn >= _spawnCooldown)

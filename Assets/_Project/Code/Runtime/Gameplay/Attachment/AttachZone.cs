@@ -6,14 +6,21 @@ namespace Runtime.Gameplay.Attachment
     [RequireComponent(typeof(Collider))]
     public class AttachZone : MonoBehaviour
     {
-        public event Action<AttachZone> OnAttachableInRange;
+        private bool _isActive;
+        
+        public event Action<AttachZone> AttachableInRange;
         
         private void OnTriggerEnter(Collider other)
         {
-            if (other.TryGetComponent(out AttachZone attachZone))
+            if (other.TryGetComponent(out AttachZone attachZone) && _isActive)
             {
-                OnAttachableInRange?.Invoke(attachZone);
+                AttachableInRange?.Invoke(attachZone);
             }
+        }
+
+        public void ActivateZone()
+        {
+            _isActive = true;
         }
     }
 }
