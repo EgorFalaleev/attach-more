@@ -10,6 +10,7 @@ namespace Runtime.Gameplay.Player
     {
         [SerializeField] private float _speed = 5f;
         [SerializeField] private AttachZone _attachZone;
+        public AttachZone AttachZone => _attachZone;
         
         private IInputService _inputService;
 

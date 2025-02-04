@@ -33,7 +33,7 @@ namespace Runtime.Gameplay.Attachment
             weapon.OnWeaponReadyToAttach += AttachWeapon;
         }
 
-        private void AttachWeapon(WeaponView weaponView)
+        private void AttachWeapon(IAttachable weaponView, IAttachable parent)
         {
             var weaponNode = new AttachableNode(weaponView, Vector3.zero);
             

@@ -8,13 +8,14 @@ namespace Runtime.Gameplay.Attachment
     {
         private bool _isActive;
         
-        public event Action<AttachZone> AttachableInRange;
+        public event Action<IAttachable> AttachableInRange;
         
         private void OnTriggerEnter(Collider other)
         {
             if (other.TryGetComponent(out AttachZone attachZone) && _isActive)
             {
-                AttachableInRange?.Invoke(attachZone);
+                var otherAttachable = other.GetComponentInParent<IAttachable>();
+                AttachableInRange?.Invoke(otherAttachable);
             }
         }
 

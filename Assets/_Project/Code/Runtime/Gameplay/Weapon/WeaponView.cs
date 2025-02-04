@@ -7,19 +7,20 @@ namespace Runtime.Gameplay.Weapon
     public class WeaponView : MonoBehaviour, IAttachable
     {
         [SerializeField] private AttachZone _weaponAttachZone;
+        public AttachZone AttachZone => _weaponAttachZone;
 
         public bool IsAttached { get; }
 
-        public event Action<WeaponView> OnWeaponReadyToAttach; 
+        public event Action<IAttachable, IAttachable> OnWeaponReadyToAttach; 
         
         private void OnEnable()
         {
             _weaponAttachZone.AttachableInRange += PrepareWeaponForAttaching;
         }
 
-        private void PrepareWeaponForAttaching(AttachZone attachZone)
+        private void PrepareWeaponForAttaching(IAttachable attachable)
         {
-            OnWeaponReadyToAttach?.Invoke(this);
+            OnWeaponReadyToAttach?.Invoke(this, attachable);
         }
     }
 }

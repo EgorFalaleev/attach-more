@@ -5,5 +5,6 @@ namespace Runtime.Gameplay.Attachment
     public interface IAttachable
     {
         bool IsAttached { get; }
+        AttachZone AttachZone { get; }
     }
 }
