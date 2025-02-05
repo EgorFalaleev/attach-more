@@ -4,7 +4,6 @@ using Runtime.Gameplay.Player;
 using Runtime.Gameplay.Weapon;
 using Runtime.Gameplay.Weapon.Factory;
 using UnityEngine;
-using Zenject;
 
 namespace Runtime.Gameplay.Attachment
 {
@@ -22,7 +21,7 @@ namespace Runtime.Gameplay.Attachment
 
             _weapons = new List<WeaponView>();
             var root = new AttachableNode(_playerView, Vector3.zero);
-            _attachableTree = new AttachableTree(root);
+            _attachableTree = new AttachableTree(root, _playerView);
             
             _weaponFactory.OnWeaponCreated += RegisterWeapon;
         }
