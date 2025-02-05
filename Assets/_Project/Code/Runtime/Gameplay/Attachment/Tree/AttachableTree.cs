@@ -42,8 +42,10 @@ namespace Runtime.Gameplay.Attachment.Tree
             {
                 RemoveFromDictionaries(child);
             }
+
+            RemoveNodeFromParentList(node);
         }
-        
+
         public void RemoveFromDictionaries(IAttachable attachable)
         {
             if (attachable == null)
@@ -57,6 +59,8 @@ namespace Runtime.Gameplay.Attachment.Tree
             {
                 RemoveFromDictionaries(child);
             }
+            
+            RemoveNodeFromParentList(node);
         }
 
         public IAttachable FindAttachableByNode(AttachableNode node)
@@ -69,6 +73,31 @@ namespace Runtime.Gameplay.Attachment.Tree
         {
             _attachableToNode.TryGetValue(attachable, out var node);
             return node;
+        }
+
+        private void RemoveNodeFromParentList(AttachableNode node)
+        {
+            var parent = FindParent(_root, node);
+            if (parent != null)
+                parent.RemoveChild(node);
+        }
+
+        private AttachableNode FindParent(AttachableNode currentNode, AttachableNode targetNode)
+        {
+            if (currentNode == null || targetNode == null)
+                return null;
+
+            foreach (var child in currentNode.Children)
+            {
+                if (child == targetNode)
+                    return currentNode;
+
+                var parent = FindParent(child, targetNode);
+                if (parent != null)
+                    return parent;
+            }
+
+            return null;
         }
     }
 }
