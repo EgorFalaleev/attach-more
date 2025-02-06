@@ -3,6 +3,7 @@ using Runtime.Gameplay.Weapon.Factory;
 using Runtime.Infrastructure.States;
 using Runtime.Infrastructure.States.StateMachine;
 using Runtime.Services;
+using Runtime.Services.Input;
 using UnityEngine;
 using Zenject;
 

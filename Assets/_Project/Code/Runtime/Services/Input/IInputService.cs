@@ -1,7 +1,6 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Runtime.Services
+namespace Runtime.Services.Input
 {
     public interface IInputService
     {
