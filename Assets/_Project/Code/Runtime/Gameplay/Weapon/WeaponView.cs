@@ -11,7 +11,7 @@ namespace Runtime.Gameplay.Weapon
 
         public bool IsAttached { get; }
 
-        public event Action<IAttachable, IAttachable> OnWeaponReadyToAttach; 
+        public event Action<IAttachable, IAttachable> OnWeaponAttachedOtherAttachable; 
         
         private void OnEnable()
         {
@@ -20,7 +20,7 @@ namespace Runtime.Gameplay.Weapon
 
         private void PrepareWeaponForAttaching(IAttachable attachable)
         {
-            OnWeaponReadyToAttach?.Invoke(this, attachable);
+            OnWeaponAttachedOtherAttachable?.Invoke(this, attachable);
         }
     }
 }

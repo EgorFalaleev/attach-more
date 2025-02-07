@@ -16,7 +16,7 @@ namespace Runtime.Gameplay.Player
         private IInputService _inputService;
 
         // player can not be attached to anything
-        public bool IsAttached => false;
+        public bool IsAttached => true;
         
         [Inject]
         private void Construct(IInputService inputService)

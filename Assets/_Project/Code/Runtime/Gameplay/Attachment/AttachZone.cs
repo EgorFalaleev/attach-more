@@ -12,7 +12,7 @@ namespace Runtime.Gameplay.Attachment
         
         private void OnTriggerEnter(Collider other)
         {
-            if (other.TryGetComponent(out AttachZone attachZone) && _isActive)
+            if (other.TryGetComponent(out AttachZone attachZone))
             {
                 var otherAttachable = other.GetComponentInParent<IAttachable>();
                 AttachableInRange?.Invoke(otherAttachable);

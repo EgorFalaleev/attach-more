@@ -11,7 +11,7 @@ namespace Runtime.Gameplay.Attachment.Tree
 
         public IReadOnlyList<AttachableNode> Children => _children;
         
-        public AttachableNode(IAttachable view, Vector3 offset)
+        public AttachableNode(Vector3 offset)
         {
             _children = new List<AttachableNode>();
             
