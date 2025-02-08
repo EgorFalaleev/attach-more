@@ -9,7 +9,7 @@ namespace Runtime.Gameplay.Attachment.Tree
 
         private Vector3 _offset;
 
-        public IReadOnlyList<AttachableNode> Children => _children;
+        public IEnumerable<AttachableNode> Children => _children;
         
         public AttachableNode(Vector3 offset)
         {

@@ -13,6 +13,13 @@ namespace Runtime.Gameplay.Player
         
         private IInputService _inputService;
 
+        public Transform Transform => transform;
+
+        public void Attach(Transform parent, Vector3 offset)
+        {
+            
+        }
+
         public bool IsAttached { get; set; }
         
         [Inject]

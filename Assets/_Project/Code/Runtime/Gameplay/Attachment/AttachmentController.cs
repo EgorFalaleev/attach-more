@@ -25,8 +25,7 @@ namespace Runtime.Gameplay.Attachment
             var parentNode = _attachableTree.FindNodeByAttachable(parent);
             var childNode = new AttachableNode(Vector3.zero);
             parentNode.AddChild(childNode);
-            child.IsAttached = true;
-            Debug.Log($"New tree node");
+            child.Attach(parent.Transform, child.Transform.position - parent.Transform.position);
             _attachableTree.AddToDictionaries(childNode, child);
         }
     }
