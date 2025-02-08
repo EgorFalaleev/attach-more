@@ -1,6 +1,7 @@
 ﻿using Runtime.Gameplay.Attachment;
 using Runtime.Gameplay.Player;
 using Runtime.Gameplay.Weapon.Spawner;
+using Runtime.Services.Collisions;
 using UnityEngine;
 using Zenject;
 
@@ -12,6 +13,7 @@ namespace Runtime.Infrastructure.Installers
         
         public override void InstallBindings()
         {
+            Container.BindInterfacesAndSelfTo<AttachableCollisionsRegistry>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<AttachmentController>().AsSingle().NonLazy();
             Container.Bind<PlayerView>().FromInstance(_playerView).AsSingle();
             Container.BindInterfacesAndSelfTo<WeaponSpawner>().AsSingle().NonLazy();
