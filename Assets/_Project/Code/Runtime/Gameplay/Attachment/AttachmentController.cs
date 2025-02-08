@@ -1,8 +1,5 @@
-﻿using System.Collections.Generic;
-using Runtime.Gameplay.Attachment.Tree;
+﻿using Runtime.Gameplay.Attachment.Tree;
 using Runtime.Gameplay.Player;
-using Runtime.Gameplay.Weapon;
-using Runtime.Gameplay.Weapon.Factory;
 using Runtime.Services.Collisions;
 using UnityEngine;
 
@@ -10,21 +7,15 @@ namespace Runtime.Gameplay.Attachment
 {
     public class AttachmentController 
     {
-        private readonly PlayerView _playerView;
-        private readonly List<WeaponView> _weapons;
-        private readonly IWeaponFactory _weaponFactory;
         private readonly AttachableTree _attachableTree;
         private readonly IAttachableCollisionsRegistry _attachableCollisionsRegistry;
 
-        public AttachmentController(PlayerView playerView, IWeaponFactory weaponFactory, IAttachableCollisionsRegistry attachableCollisionsRegistry)
+        public AttachmentController(PlayerView playerView, IAttachableCollisionsRegistry attachableCollisionsRegistry)
         {
-            _playerView = playerView;
-            _weaponFactory = weaponFactory;
             _attachableCollisionsRegistry = attachableCollisionsRegistry;
 
-            _weapons = new List<WeaponView>();
             var root = new AttachableNode(Vector3.zero);
-            _attachableTree = new AttachableTree(root, _playerView);
+            _attachableTree = new AttachableTree(root, playerView);
 
             _attachableCollisionsRegistry.OnValidAttachCollision += AddTreeNode;
         }
@@ -34,8 +25,8 @@ namespace Runtime.Gameplay.Attachment
             var parentNode = _attachableTree.FindNodeByAttachable(parent);
             var childNode = new AttachableNode(Vector3.zero);
             parentNode.AddChild(childNode);
-            
-            _attachableTree.AddToDictionaries(parentNode, parent);
+            child.IsAttached = true;
+            Debug.Log($"New tree node");
             _attachableTree.AddToDictionaries(childNode, child);
         }
     }

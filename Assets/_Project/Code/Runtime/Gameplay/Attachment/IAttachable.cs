@@ -1,10 +1,8 @@
-﻿using UnityEngine;
-
-namespace Runtime.Gameplay.Attachment
+﻿namespace Runtime.Gameplay.Attachment
 {
     public interface IAttachable
     {
-        bool IsAttached { get; }
+        bool IsAttached { get; set; }
         AttachZone AttachZone { get; }
     }
 }

@@ -9,7 +9,7 @@ namespace Runtime.Gameplay.Weapon
         [SerializeField] private AttachZone _weaponAttachZone;
         public AttachZone AttachZone => _weaponAttachZone;
 
-        public bool IsAttached { get; }
+        public bool IsAttached { get; set; }
 
         public event Action<IAttachable, IAttachable> OnWeaponAttachedOtherAttachable; 
         

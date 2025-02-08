@@ -1,6 +1,4 @@
-﻿using System;
-using Runtime.Gameplay.Attachment;
-using Runtime.Services;
+﻿using Runtime.Gameplay.Attachment;
 using Runtime.Services.Input;
 using UnityEngine;
 using Zenject;
@@ -15,13 +13,13 @@ namespace Runtime.Gameplay.Player
         
         private IInputService _inputService;
 
-        // player can not be attached to anything
-        public bool IsAttached => true;
+        public bool IsAttached { get; set; }
         
         [Inject]
         private void Construct(IInputService inputService)
         {
             _inputService = inputService;
+            IsAttached = true;
         }
 
         private void Update()
