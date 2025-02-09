@@ -7,6 +7,7 @@ namespace Runtime.Gameplay.Weapon
     public class WeaponView : MonoBehaviour, IAttachable
     {
         [SerializeField] private AttachZone _weaponAttachZone;
+        [SerializeField] private AttachmentLineAnimator _attachmentLineAnimator;
 
         private bool _isAttached;
         private Vector3 _offset;
@@ -37,6 +38,8 @@ namespace Runtime.Gameplay.Weapon
             _isAttached = true;
             _parent = parent;
             _offset = offset;
+
+            _attachmentLineAnimator.AnimateLine(parent, transform);
         }
 
         private void PrepareWeaponForAttaching(IAttachable attachable)
