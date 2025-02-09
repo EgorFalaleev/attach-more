@@ -206,7 +206,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _lineRenderer: {fileID: 4546503735520565760}
-  _animationDuration: 0.75
+  _animationDuration: 0.3
 --- !u!120 &4546503735520565760
 LineRenderer:
   serializedVersion: 2

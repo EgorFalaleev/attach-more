@@ -1,4 +1,5 @@
-﻿using Runtime.Gameplay.Attachment;
+﻿using Cysharp.Threading.Tasks;
+using Runtime.Gameplay.Attachment;
 using Runtime.Services.Input;
 using UnityEngine;
 using Zenject;
@@ -15,7 +16,7 @@ namespace Runtime.Gameplay.Player
 
         public Transform Transform => transform;
 
-        public void Attach(Transform parent, Vector3 offset)
+        public async UniTaskVoid Attach(Transform parent, Vector3 offset)
         {
             
         }

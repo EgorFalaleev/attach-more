@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace Runtime.Gameplay.Attachment
@@ -10,17 +10,28 @@ namespace Runtime.Gameplay.Attachment
         [SerializeField] private LineRenderer _lineRenderer;
         [SerializeField] private float _animationDuration = 1f;
 
-        public void AnimateLine(Transform startPoint, Transform endPoint)
+        private Transform _lineStartPoint;
+        private Transform _lineEndPoint;
+        private bool _animationFinished;
+
+        private void Update()
         {
+            if (!_animationFinished)
+                return;
+            
+            _lineRenderer.SetPosition(0, _lineStartPoint.position);
+            _lineRenderer.SetPosition(1, _lineEndPoint.position);
+        }
+
+        public async UniTask AnimateLineAsync(Transform startPoint, Transform endPoint)
+        {
+            _lineStartPoint = startPoint;
+            _lineEndPoint = endPoint;
+            
             _lineRenderer.positionCount = 2;
             _lineRenderer.SetPosition(0, startPoint.position);
             _lineRenderer.SetPosition(1, startPoint.position);
 
-            StartCoroutine(AnimateLineSmoothly(startPoint, endPoint));
-        }
-
-        private IEnumerator AnimateLineSmoothly(Transform startPoint, Transform endPoint)
-        {
             var elapsedTime = 0f;
 
             while (elapsedTime < _animationDuration)
@@ -33,17 +44,12 @@ namespace Runtime.Gameplay.Attachment
 
                 elapsedTime += Time.deltaTime;
 
-                yield return null;
+                await UniTask.Yield();
             }
             
             _lineRenderer.SetPosition(1, endPoint.position);
 
-            while (true)
-            {
-                _lineRenderer.SetPosition(0, startPoint.position);
-                _lineRenderer.SetPosition(1, endPoint.position);
-                yield return null;
-            }
+            _animationFinished = true;
         }
     }
 }
