@@ -6,16 +6,30 @@ namespace Runtime.Gameplay.Attachment
     [RequireComponent(typeof(Collider))]
     public class AttachZone : MonoBehaviour
     {
+        private Collider _collider;
+
+        public float Radius => _collider.bounds.extents.x;
         public event Action<IAttachable> AttachableInRange;
-        
+
+        private void Start()
+        {
+            _collider = GetComponent<Collider>();
+        }
+
         private void OnTriggerEnter(Collider other)
         {
-            Debug.Log(nameof(OnTriggerEnter));
             if (other.TryGetComponent(out AttachZone attachZone))
             {
                 var otherAttachable = other.GetComponentInParent<IAttachable>();
                 AttachableInRange?.Invoke(otherAttachable);
             }
+        }
+
+        private void OnDrawGizmos()
+        {
+            _collider = GetComponent<Collider>();
+            
+            Gizmos.DrawWireSphere(transform.position, Radius);
         }
     }
 }

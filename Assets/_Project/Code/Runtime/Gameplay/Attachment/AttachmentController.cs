@@ -17,15 +17,20 @@ namespace Runtime.Gameplay.Attachment
             var root = new AttachableNode(Vector3.zero);
             _attachableTree = new AttachableTree(root, playerView);
 
-            _attachableCollisionsRegistry.OnValidAttachCollision += AddTreeNode;
+            _attachableCollisionsRegistry.OnValidAttachCollision += PerformAttachment;
         }
 
-        private void AddTreeNode(IAttachable parent, IAttachable child)
+        private void PerformAttachment(IAttachable parent, IAttachable child)
         {
             var parentNode = _attachableTree.FindNodeByAttachable(parent);
             var childNode = new AttachableNode(Vector3.zero);
             parentNode.AddChild(childNode);
-            child.Attach(parent.Transform, child.Transform.position - parent.Transform.position);
+
+            var direction = child.Transform.position - parent.Transform.position;
+            var parentSize = parent.AttachZone.Radius;
+            var childSize = child.AttachZone.Radius;
+            
+            child.Attach(parent.Transform, direction.normalized * (parentSize + childSize));
             _attachableTree.AddToDictionaries(childNode, child);
         }
     }
