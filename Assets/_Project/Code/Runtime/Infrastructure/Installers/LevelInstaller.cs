@@ -13,6 +13,7 @@ namespace Runtime.Infrastructure.Installers
         
         public override void InstallBindings()
         {
+            Container.BindInterfacesAndSelfTo<AttachableProvider>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<AttachableCollisionsRegistry>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<AttachmentController>().AsSingle().NonLazy();
             Container.Bind<PlayerView>().FromInstance(_playerView).AsSingle();

@@ -9,10 +9,12 @@ namespace Runtime.Gameplay.Attachment
     {
         private readonly AttachableTree _attachableTree;
         private readonly IAttachableCollisionsRegistry _attachableCollisionsRegistry;
+        private readonly IAttachableProvider _attachableProvider;
 
-        public AttachmentController(PlayerView playerView, IAttachableCollisionsRegistry attachableCollisionsRegistry)
+        public AttachmentController(PlayerView playerView, IAttachableCollisionsRegistry attachableCollisionsRegistry, IAttachableProvider attachableProvider)
         {
             _attachableCollisionsRegistry = attachableCollisionsRegistry;
+            _attachableProvider = attachableProvider;
 
             var root = new AttachableNode(Vector3.zero);
             _attachableTree = new AttachableTree(root, playerView);
@@ -29,8 +31,20 @@ namespace Runtime.Gameplay.Attachment
             var direction = child.Transform.position - parent.Transform.position;
             var parentSize = parent.AttachZone.Radius;
             var childSize = child.AttachZone.Radius;
+            var potentialChildOffset = direction.normalized * (parentSize + childSize);
+            var potentialChildPosition = parent.Transform.position + potentialChildOffset;
             
-            child.Attach(parent.Transform, direction.normalized * (parentSize + childSize));
+            foreach (var attachable in _attachableProvider.Attachables)
+            {
+                if (attachable == child)
+                    continue;
+
+                var distanceSqr = (potentialChildPosition - attachable.Transform.position).sqrMagnitude;
+                if (distanceSqr < childSize + attachable.AttachZone.Radius)
+                    Debug.Log("Incorrect position");
+            }
+            
+            child.Attach(parent.Transform, potentialChildOffset);
             _attachableTree.AddToDictionaries(childNode, child);
         }
     }
