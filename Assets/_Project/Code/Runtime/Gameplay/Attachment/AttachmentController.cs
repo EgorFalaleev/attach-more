@@ -33,15 +33,44 @@ namespace Runtime.Gameplay.Attachment
             var childSize = child.AttachZone.Radius;
             var potentialChildOffset = direction.normalized * (parentSize + childSize);
             var potentialChildPosition = parent.Transform.position + potentialChildOffset;
-            
-            foreach (var attachable in _attachableProvider.Attachables)
-            {
-                if (attachable == child)
-                    continue;
 
-                var distanceSqr = (potentialChildPosition - attachable.Transform.position).sqrMagnitude;
-                if (distanceSqr < childSize + attachable.AttachZone.Radius)
-                    Debug.Log("Incorrect position");
+            var positionFound = false;
+            var maxAttempts = 36;
+            var rotationStep = 360f / maxAttempts;
+            var currentAttempt = 0;
+
+            while (!positionFound && currentAttempt < maxAttempts)
+            {
+                var isPositionValid = true;
+                
+                foreach (var attachable in _attachableProvider.Attachables)
+                {
+                    if (attachable == child)
+                        continue;
+
+                    var distance = (potentialChildPosition - attachable.Transform.position).magnitude;
+                    if (distance < childSize + attachable.AttachZone.Radius - 0.001f)
+                    {
+                        Debug.Log($"Attachables are too close ({child.Transform.gameObject.name} and {attachable.Transform.gameObject.name}): distance {distance}, required {childSize + attachable.AttachZone.Radius}");
+                        isPositionValid = false;
+                        break;
+                    }
+                }
+
+                if (isPositionValid)
+                    positionFound = true;
+                else
+                {
+                    potentialChildOffset = Quaternion.Euler(0, rotationStep, 0) * potentialChildOffset;
+                    potentialChildPosition = parent.Transform.position + potentialChildOffset;
+                    currentAttempt++;
+                }
+            }
+
+            if (!positionFound)
+            {
+                Debug.Log("Could not find a valid position");
+                return;
             }
             
             child.Attach(parent.Transform, potentialChildOffset);
