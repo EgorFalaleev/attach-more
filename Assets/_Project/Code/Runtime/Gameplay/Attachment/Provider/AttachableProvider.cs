@@ -2,14 +2,14 @@
 using Runtime.Gameplay.Player;
 using Runtime.Gameplay.Weapon.Factory;
 
-namespace Runtime.Gameplay.Attachment
+namespace Runtime.Gameplay.Attachment.Provider
 {
     public class AttachableProvider : IAttachableProvider
     {
         private readonly IWeaponFactory _weaponFactory;
-        private readonly List<IAttachable> _attachables = new();
+        private readonly List<IAttachableView> _attachables = new();
 
-        public IReadOnlyList<IAttachable> Attachables => _attachables;
+        public IEnumerable<IAttachableView> Attachables => _attachables;
         
         public AttachableProvider(IWeaponFactory weaponFactory, PlayerView playerView)
         {
@@ -19,7 +19,7 @@ namespace Runtime.Gameplay.Attachment
             _attachables.Add(playerView);
         }
 
-        private void AddAttachable(IAttachable attachable) => 
-            _attachables.Add(attachable);
+        private void AddAttachable(IAttachableView attachableView) => 
+            _attachables.Add(attachableView);
     }
 }

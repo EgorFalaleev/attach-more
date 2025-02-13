@@ -1,6 +1,7 @@
-﻿using Runtime.Gameplay.Attachment.Tree;
+﻿using Runtime.Gameplay.Attachment.Collisions;
+using Runtime.Gameplay.Attachment.Provider;
+using Runtime.Gameplay.Attachment.Tree;
 using Runtime.Gameplay.Player;
-using Runtime.Services.Collisions;
 using UnityEngine;
 
 namespace Runtime.Gameplay.Attachment
@@ -16,30 +17,30 @@ namespace Runtime.Gameplay.Attachment
             _attachableCollisionsRegistry = attachableCollisionsRegistry;
             _attachableProvider = attachableProvider;
 
-            var root = new AttachableNode(Vector3.zero);
+            var root = new AttachableNode();
             _attachableTree = new AttachableTree(root, playerView);
 
             _attachableCollisionsRegistry.OnValidAttachCollision += PerformAttachment;
         }
 
-        private void PerformAttachment(IAttachable parent, IAttachable child)
+        private void PerformAttachment(IAttachableView parent, IAttachableView child)
         {
             var parentNode = _attachableTree.FindNodeByAttachable(parent);
 
             if (!TryFindValidAttachOffset(parent, child, out var childOffset)) 
                 return;
             
-            var childNode = new AttachableNode(childOffset);
+            var childNode = new AttachableNode();
             parentNode.AddChild(childNode);
             child.Attach(parent.Transform, childOffset);
             _attachableTree.AddToDictionaries(childNode, child);
         }
         
-        private bool TryFindValidAttachOffset(IAttachable parent, IAttachable child, out Vector3 childOffset)
+        private bool TryFindValidAttachOffset(IAttachableView parent, IAttachableView child, out Vector3 childOffset)
         {
             var direction = child.Transform.position - parent.Transform.position;
-            var parentSize = parent.AttachZone.Radius;
-            var childSize = child.AttachZone.Radius;
+            var parentSize = parent.AttachmentRadius;
+            var childSize = child.AttachmentRadius;
             childOffset = direction.normalized * (parentSize + childSize);
             var potentialChildPosition = parent.Transform.position + childOffset;
 
@@ -48,6 +49,7 @@ namespace Runtime.Gameplay.Attachment
             var rotationStep = 360f / maxAttempts;
             var currentAttempt = 0;
 
+            // search for an offset with the same radius but different angle
             while (!positionFound && currentAttempt < maxAttempts)
             {
                 var isPositionValid = true;
@@ -58,7 +60,7 @@ namespace Runtime.Gameplay.Attachment
                         continue;
 
                     var distanceSqr = (potentialChildPosition - attachable.Transform.position).sqrMagnitude;
-                    var minDistance = childSize + attachable.AttachZone.Radius;
+                    var minDistance = childSize + attachable.AttachmentRadius;
                     if (distanceSqr < minDistance * minDistance - 0.001f)
                     {
                         isPositionValid = false;

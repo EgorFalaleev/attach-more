@@ -6,22 +6,16 @@ using Zenject;
 
 namespace Runtime.Gameplay.Player
 {
-    public class PlayerView : MonoBehaviour, IAttachable
+    public class PlayerView : MonoBehaviour, IAttachableView
     {
         [SerializeField] private float _speed = 5f;
         [SerializeField] private AttachZone _attachZone;
-        public AttachZone AttachZone => _attachZone;
+
+        public float AttachmentRadius => _attachZone.Radius;
+        public Transform Transform => transform;
+        public bool IsAttached { get; set; }
         
         private IInputService _inputService;
-
-        public Transform Transform => transform;
-
-        public async UniTaskVoid Attach(Transform parent, Vector3 offset)
-        {
-            
-        }
-
-        public bool IsAttached { get; set; }
         
         [Inject]
         private void Construct(IInputService inputService)
@@ -34,6 +28,11 @@ namespace Runtime.Gameplay.Player
         {
             if (_inputService.MoveDirection != Vector3.zero)
                 Move(_inputService.MoveDirection * (_speed * Time.deltaTime));
+        }
+
+        public async UniTaskVoid Attach(Transform parent, Vector3 offset)
+        {
+            
         }
 
         private void Move(Vector3 direction)

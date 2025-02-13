@@ -3,11 +3,11 @@ using UnityEngine;
 
 namespace Runtime.Gameplay.Attachment
 {
-    public interface IAttachable
+    public interface IAttachableView
     {
         Transform Transform { get; }
         UniTaskVoid Attach(Transform parent, Vector3 offset);
         bool IsAttached { get; }
-        AttachZone AttachZone { get; }
+        float AttachmentRadius { get; }
     }
 }

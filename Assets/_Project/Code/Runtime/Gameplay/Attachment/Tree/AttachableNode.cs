@@ -1,22 +1,12 @@
 ﻿using System.Collections.Generic;
-using UnityEngine;
 
 namespace Runtime.Gameplay.Attachment.Tree
 {
     public class AttachableNode
     {
-        private readonly List<AttachableNode> _children;
-
-        private Vector3 _offset;
+        private readonly List<AttachableNode> _children = new();
 
         public IEnumerable<AttachableNode> Children => _children;
-        
-        public AttachableNode(Vector3 offset)
-        {
-            _children = new List<AttachableNode>();
-            
-            _offset = offset;
-        }
 
         public void AddChild(AttachableNode child) => 
             _children.Add(child);

@@ -9,7 +9,7 @@ namespace Runtime.Gameplay.Attachment
         private Collider _collider;
 
         public float Radius => _collider.bounds.extents.x;
-        public event Action<IAttachable> AttachableInRange;
+        public event Action<IAttachableView> AttachableInRange;
 
         private void Start()
         {
@@ -20,7 +20,7 @@ namespace Runtime.Gameplay.Attachment
         {
             if (other.TryGetComponent(out AttachZone attachZone))
             {
-                var otherAttachable = other.GetComponentInParent<IAttachable>();
+                var otherAttachable = other.GetComponentInParent<IAttachableView>();
                 AttachableInRange?.Invoke(otherAttachable);
             }
         }

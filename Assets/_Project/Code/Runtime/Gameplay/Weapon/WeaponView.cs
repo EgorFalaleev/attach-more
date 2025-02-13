@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Runtime.Gameplay.Weapon
 {
-    public class WeaponView : MonoBehaviour, IAttachable
+    public class WeaponView : MonoBehaviour, IAttachableView
     {
         [SerializeField] private AttachZone _weaponAttachZone;
         [SerializeField] private AttachmentLineAnimator _attachmentLineAnimator;
@@ -16,10 +16,10 @@ namespace Runtime.Gameplay.Weapon
         private Transform _parent;
 
         public Transform Transform => transform;
-        public AttachZone AttachZone => _weaponAttachZone;
         public bool IsAttached => _isAttached;
+        public float AttachmentRadius => _weaponAttachZone.Radius;
 
-        public event Action<IAttachable, IAttachable> OnWeaponAttachedOtherAttachable;
+        public event Action<IAttachableView, IAttachableView> OnWeaponAttachedOtherAttachable;
 
         private void OnEnable()
         {
@@ -46,9 +46,9 @@ namespace Runtime.Gameplay.Weapon
             _canMove = true;
         }
 
-        private void PrepareWeaponForAttaching(IAttachable attachable)
+        private void PrepareWeaponForAttaching(IAttachableView attachableView)
         {
-            OnWeaponAttachedOtherAttachable?.Invoke(this, attachable);
+            OnWeaponAttachedOtherAttachable?.Invoke(this, attachableView);
         }
 
         private async UniTask MoveTowardsAttachedPositionAsync(float duration)

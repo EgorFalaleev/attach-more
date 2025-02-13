@@ -1,15 +1,14 @@
 ﻿using System;
-using Runtime.Gameplay.Attachment;
 using Runtime.Gameplay.Weapon;
 using Runtime.Gameplay.Weapon.Factory;
 
-namespace Runtime.Services.Collisions
+namespace Runtime.Gameplay.Attachment.Collisions
 {
     public class AttachableCollisionsRegistry : IAttachableCollisionsRegistry
     {
         private readonly IWeaponFactory _weaponFactory;
 
-        public event Action<IAttachable, IAttachable> OnValidAttachCollision; 
+        public event Action<IAttachableView, IAttachableView> OnValidAttachCollision; 
         
         public AttachableCollisionsRegistry(IWeaponFactory weaponFactory)
         {
@@ -23,7 +22,7 @@ namespace Runtime.Services.Collisions
             weaponView.OnWeaponAttachedOtherAttachable += CheckValidAttachment ;
         }
 
-        private void CheckValidAttachment(IAttachable attachable1, IAttachable attachable2)
+        private void CheckValidAttachment(IAttachableView attachable1, IAttachableView attachable2)
         {
             if (attachable1 == null || attachable2 == null)
                 return;

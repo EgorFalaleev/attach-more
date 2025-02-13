@@ -1,7 +1,8 @@
 ﻿using Runtime.Gameplay.Attachment;
+using Runtime.Gameplay.Attachment.Collisions;
+using Runtime.Gameplay.Attachment.Provider;
 using Runtime.Gameplay.Player;
 using Runtime.Gameplay.Weapon.Spawner;
-using Runtime.Services.Collisions;
 using UnityEngine;
 using Zenject;
 
