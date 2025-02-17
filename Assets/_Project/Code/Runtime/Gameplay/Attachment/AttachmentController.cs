@@ -1,35 +1,36 @@
 ﻿using Runtime.Gameplay.Attachment.Collisions;
 using Runtime.Gameplay.Attachment.Provider;
 using Runtime.Gameplay.Attachment.Tree;
-using Runtime.Gameplay.Player;
 using UnityEngine;
 
 namespace Runtime.Gameplay.Attachment
 {
     public class AttachmentController 
     {
-        private readonly AttachableTree _attachableTree;
+        private AttachableTree _attachableTree;
         private readonly IAttachableCollisionsRegistry _attachableCollisionsRegistry;
         private readonly IAttachableProvider _attachableProvider;
 
-        public AttachmentController(PlayerView playerView, IAttachableCollisionsRegistry attachableCollisionsRegistry, IAttachableProvider attachableProvider)
+        public AttachmentController(IAttachableCollisionsRegistry attachableCollisionsRegistry, IAttachableProvider attachableProvider)
         {
             _attachableCollisionsRegistry = attachableCollisionsRegistry;
             _attachableProvider = attachableProvider;
-
-            var root = new AttachableNode();
-            _attachableTree = new AttachableTree(root, playerView);
 
             _attachableCollisionsRegistry.OnValidAttachCollision += PerformAttachment;
         }
 
         private void PerformAttachment(IAttachableView parent, IAttachableView child)
         {
-            var parentNode = _attachableTree.FindNodeByAttachable(parent);
-
             if (!TryFindValidAttachOffset(parent, child, out var childOffset)) 
                 return;
-            
+
+            if (_attachableTree == null)
+            {
+                var root = new AttachableNode();
+                _attachableTree = new AttachableTree();
+                _attachableTree.AddRoot(root, parent);
+            }
+            var parentNode = _attachableTree.FindNodeByAttachable(parent);
             var childNode = new AttachableNode();
             parentNode.AddChild(childNode);
             child.Attach(parent.Transform, childOffset);

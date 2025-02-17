@@ -4,20 +4,23 @@ namespace Runtime.Gameplay.Attachment.Tree
 {
     public class AttachableTree
     {
-        private readonly AttachableNode _root;
-        
         private readonly Dictionary<AttachableNode,IAttachableView> _nodeToAttachable;
         private readonly Dictionary<IAttachableView,AttachableNode> _attachableToNode;
         
+        private AttachableNode _root;
+     
         public AttachableNode Root => _root;
         
-        public AttachableTree(AttachableNode root, IAttachableView rootView)
+        public AttachableTree()
         {
-            _root = root;
             _nodeToAttachable = new Dictionary<AttachableNode, IAttachableView>();
             _attachableToNode = new Dictionary<IAttachableView, AttachableNode>();
+        }
 
-            AddToDictionaries(_root, rootView);
+        public void AddRoot(AttachableNode root, IAttachableView rootView)
+        {
+            _root = root;
+            AddToDictionaries(root, rootView);
         }
 
         public void AddToDictionaries(AttachableNode node, IAttachableView view)
