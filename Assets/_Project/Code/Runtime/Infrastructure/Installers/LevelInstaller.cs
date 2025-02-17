@@ -11,13 +11,15 @@ namespace Runtime.Infrastructure.Installers
     public class LevelInstaller : MonoInstaller
     {
         [SerializeField] private PlayerView _playerView;
+        [SerializeField] private Transform _spawnPoint;
         
         public override void InstallBindings()
         {
+            Container.BindInterfacesAndSelfTo<PlayerView>().FromInstance(_playerView).AsSingle().NonLazy();
+
             Container.BindInterfacesAndSelfTo<AttachableProvider>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<AttachableCollisionsRegistry>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<AttachmentController>().AsSingle().NonLazy();
-            Container.Bind<PlayerView>().FromInstance(_playerView).AsSingle();
             Container.BindInterfacesAndSelfTo<WeaponSpawner>().AsSingle().NonLazy();
         }
     }

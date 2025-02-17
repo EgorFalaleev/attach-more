@@ -76,3 +76,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _weaponPrefab: {fileID: -2492809753819475724, guid: 207ad5b47f2be9242b37cea52030c21f,
     type: 3}
+  _playerView: {fileID: 8999042537251678495, guid: 0fe304fbf0774fa4e95fcd439e880d07,
+    type: 3}

@@ -6,16 +6,11 @@ namespace Runtime.Gameplay.Attachment
     [RequireComponent(typeof(Collider))]
     public class AttachZone : MonoBehaviour
     {
-        private Collider _collider;
+        [SerializeField] private Collider _collider;
 
         public float Radius => _collider.bounds.extents.x;
         public event Action<IAttachableView> AttachableInRange;
-
-        private void Start()
-        {
-            _collider = GetComponent<Collider>();
-        }
-
+        
         private void OnTriggerEnter(Collider other)
         {
             if (other.TryGetComponent(out AttachZone attachZone))
@@ -27,8 +22,6 @@ namespace Runtime.Gameplay.Attachment
 
         private void OnDrawGizmos()
         {
-            _collider = GetComponent<Collider>();
-            
             Gizmos.DrawWireSphere(transform.position, Radius);
         }
     }

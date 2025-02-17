@@ -1,8 +1,9 @@
+using Runtime.Gameplay.Player;
+using Runtime.Gameplay.Player.Factory;
 using Runtime.Gameplay.Weapon;
 using Runtime.Gameplay.Weapon.Factory;
 using Runtime.Infrastructure.States;
 using Runtime.Infrastructure.States.StateMachine;
-using Runtime.Services;
 using Runtime.Services.Input;
 using UnityEngine;
 using Zenject;
@@ -12,6 +13,7 @@ namespace Runtime.Infrastructure.Installers
     public class BootstrapInstaller : MonoInstaller, IInitializable
     {
         [SerializeField] private WeaponView _weaponPrefab;
+        [SerializeField] private PlayerView _playerView;
         
         public override void InstallBindings()
         {
@@ -49,6 +51,7 @@ namespace Runtime.Infrastructure.Installers
 
         private void BindFactories()
         {
+            Container.Bind<IPlayerFactory>().To<PlayerFactory>().AsSingle().WithArguments(_playerView).NonLazy();
             Container.Bind<IWeaponFactory>().To<WeaponFactory>().AsSingle().WithArguments(_weaponPrefab).NonLazy();
         }
     }
