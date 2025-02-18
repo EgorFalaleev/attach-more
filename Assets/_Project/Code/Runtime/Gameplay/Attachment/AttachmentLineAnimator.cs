@@ -47,6 +47,7 @@ namespace Runtime.Gameplay.Attachment
             }
             
             _lineRenderer.SetPosition(1, endPoint.position);
+            _lineRenderer.startColor = _lineRenderer.endColor = Color.cyan;
 
             _animationFinished = true;
         }
