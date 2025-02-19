@@ -1,4 +1,5 @@
 ﻿using Runtime.Gameplay.Player.Factory;
+using Runtime.Gameplay.Weapon.Spawner;
 using UnityEngine;
 
 namespace Runtime.Infrastructure.States
@@ -6,15 +7,18 @@ namespace Runtime.Infrastructure.States
     public class BootstrapState : IState
     {
         private readonly IPlayerFactory _playerFactory;
+        private readonly WeaponSpawner _weaponSpawner;
 
-        public BootstrapState(IPlayerFactory playerFactory)
+        public BootstrapState(IPlayerFactory playerFactory, WeaponSpawner weaponSpawner)
         {
             _playerFactory = playerFactory;
+            _weaponSpawner = weaponSpawner;
         }
         
         public void Enter()
         {
-            _playerFactory.CreatePlayer(new Vector3(0,1.05f,0));
+            var playerView = _playerFactory.CreatePlayer(new Vector3(0,1.05f,0));
+            _weaponSpawner._spawnCenter = playerView.Transform;
         }
 
         public void Exit()

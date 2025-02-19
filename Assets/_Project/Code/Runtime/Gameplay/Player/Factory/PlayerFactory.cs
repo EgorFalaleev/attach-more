@@ -15,9 +15,7 @@ namespace Runtime.Gameplay.Player.Factory
             _instantiator = instantiator;
         }
 
-        public void CreatePlayer(Vector3 position)
-        {
+        public PlayerView CreatePlayer(Vector3 position) => 
             _instantiator.InstantiatePrefabForComponent<PlayerView>(_playerView, position, Quaternion.identity, null);
-        }
     }
 }
