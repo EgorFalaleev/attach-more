@@ -1,3 +1,4 @@
+using Runtime.Gameplay.Enemies.Factory;
 using Runtime.Gameplay.Player;
 using Runtime.Gameplay.Player.Factory;
 using Runtime.Gameplay.Weapon;
@@ -55,6 +56,7 @@ namespace Runtime.Infrastructure.Installers
         {
             Container.Bind<IPlayerFactory>().To<PlayerFactory>().AsSingle().WithArguments(_playerView).NonLazy();
             Container.Bind<IWeaponFactory>().To<WeaponFactory>().AsSingle().WithArguments(_weaponPrefab).NonLazy();
+            Container.Bind<IEnemyFactory>().To<EnemyFactory>().AsSingle().NonLazy();
         }
 
         private void BindSpawners()
