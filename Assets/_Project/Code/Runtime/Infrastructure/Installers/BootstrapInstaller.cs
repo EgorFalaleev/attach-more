@@ -44,6 +44,7 @@ namespace Runtime.Infrastructure.Installers
         private void BindStates()
         {
             Container.BindInterfacesAndSelfTo<BootstrapState>().AsSingle();
+            Container.BindInterfacesAndSelfTo<GameLoopState>().AsSingle();
         }
 
         private void BindStateMachine()

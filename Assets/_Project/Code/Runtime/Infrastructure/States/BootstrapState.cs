@@ -1,31 +1,28 @@
-﻿using Runtime.Gameplay.Enemies.Spawner;
-using Runtime.Gameplay.Player.Factory;
-using Runtime.Gameplay.Weapon.Spawner;
-using UnityEngine;
+﻿using Runtime.Constants;
+using Runtime.Infrastructure.Loading;
+using Runtime.Infrastructure.States.StateMachine;
 
 namespace Runtime.Infrastructure.States
 {
     public class BootstrapState : IState
     {
-        private readonly IPlayerFactory _playerFactory;
-        private readonly WeaponSpawner _weaponSpawner;
-        private readonly EnemySpawner _enemySpawner;
+        private readonly IGameStateMachine _gameStateMachine;
+        private readonly ISceneLoader _sceneLoader;
 
-        public BootstrapState(IPlayerFactory playerFactory, WeaponSpawner weaponSpawner, EnemySpawner enemySpawner)
+        public BootstrapState(IGameStateMachine gameStateMachine, ISceneLoader sceneLoader)
         {
-            _playerFactory = playerFactory;
-            _weaponSpawner = weaponSpawner;
-            _enemySpawner = enemySpawner;
+            _gameStateMachine = gameStateMachine;
+            _sceneLoader = sceneLoader;
         }
         
-        public void Enter()
-        {
-            var playerView = _playerFactory.CreatePlayer(new Vector3(0,1.05f,0));
-            _weaponSpawner._spawnCenter = playerView.Transform;
-        }
+        public async void Enter() => 
+            await _sceneLoader.LoadAsync(Scenes.Gameplay, EnterGameLoopState);
 
         public void Exit()
         {
         }
+
+        private void EnterGameLoopState() => 
+            _gameStateMachine.Enter<GameLoopState>();
     }
 }
