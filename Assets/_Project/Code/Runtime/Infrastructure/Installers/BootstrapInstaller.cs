@@ -1,6 +1,9 @@
+using Runtime.Gameplay.Enemies;
 using Runtime.Gameplay.Enemies.Factory;
+using Runtime.Gameplay.Enemies.Spawner;
 using Runtime.Gameplay.Player;
 using Runtime.Gameplay.Player.Factory;
+using Runtime.Gameplay.Player.Provider;
 using Runtime.Gameplay.Weapon;
 using Runtime.Gameplay.Weapon.Factory;
 using Runtime.Gameplay.Weapon.Spawner;
@@ -32,14 +35,14 @@ namespace Runtime.Infrastructure.Installers
             Container.Resolve<IGameStateMachine>().Enter<BootstrapState>();
         }
 
-        private void BindStates()
-        {
-            Container.BindInterfacesAndSelfTo<BootstrapState>().AsSingle();
-        }
-
         private void BindSelf()
         {
             Container.BindInterfacesTo<BootstrapInstaller>().FromInstance(this).AsSingle();
+        }
+
+        private void BindStates()
+        {
+            Container.BindInterfacesAndSelfTo<BootstrapState>().AsSingle();
         }
 
         private void BindStateMachine()
@@ -56,7 +59,6 @@ namespace Runtime.Infrastructure.Installers
         {
             Container.Bind<IPlayerFactory>().To<PlayerFactory>().AsSingle().WithArguments(_playerView).NonLazy();
             Container.Bind<IWeaponFactory>().To<WeaponFactory>().AsSingle().WithArguments(_weaponPrefab).NonLazy();
-            Container.Bind<IEnemyFactory>().To<EnemyFactory>().AsSingle().NonLazy();
         }
 
         private void BindSpawners()

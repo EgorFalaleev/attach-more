@@ -78,3 +78,5 @@ MonoBehaviour:
     type: 3}
   _playerView: {fileID: 8999042537251678495, guid: 0fe304fbf0774fa4e95fcd439e880d07,
     type: 3}
+  _enemyView: {fileID: 519475741177354255, guid: 521601c2d0cf48044afc2e01622460dd,
+    type: 3}
