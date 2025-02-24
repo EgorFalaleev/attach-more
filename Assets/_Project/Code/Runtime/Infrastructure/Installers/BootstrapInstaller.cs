@@ -7,6 +7,7 @@ using Runtime.Gameplay.Player.Provider;
 using Runtime.Gameplay.Weapon;
 using Runtime.Gameplay.Weapon.Factory;
 using Runtime.Gameplay.Weapon.Spawner;
+using Runtime.Infrastructure.Loading;
 using Runtime.Infrastructure.States;
 using Runtime.Infrastructure.States.StateMachine;
 using Runtime.Services.Input;
@@ -53,6 +54,7 @@ namespace Runtime.Infrastructure.Installers
         private void BindServices()
         {
             Container.BindInterfacesAndSelfTo<InputService>().AsSingle();
+            Container.Bind<ISceneLoader>().To<SceneLoader>().AsSingle();
         }
 
         private void BindFactories()
