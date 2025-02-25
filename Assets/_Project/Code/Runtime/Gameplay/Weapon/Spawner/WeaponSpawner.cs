@@ -4,11 +4,12 @@ using Zenject;
 
 namespace Runtime.Gameplay.Weapon.Spawner
 {
-    public class WeaponSpawner : ITickable
+    public class WeaponSpawner : ITickable, IWeaponSpawner
     {
-        public Transform _spawnCenter;
         private readonly IWeaponFactory _weaponFactory;
-
+        
+        private Transform _spawnCenter;
+        private bool _canSpawn;
         private float _spawnCooldown = 5f;
         private float _timeFromLastSpawn;
         private float _spawnRadius = 5f;
@@ -20,7 +21,7 @@ namespace Runtime.Gameplay.Weapon.Spawner
         
         public void Tick()
         {
-            if (_spawnCenter == null)
+            if (!_canSpawn)
                 return;
             
             _timeFromLastSpawn += Time.deltaTime;
@@ -32,6 +33,15 @@ namespace Runtime.Gameplay.Weapon.Spawner
                 _weaponFactory.CreateWeapon(randomPosition);
             }
         }
+
+        public void StartSpawning(Transform spawnCenter)
+        {
+            _spawnCenter = spawnCenter;
+            _canSpawn = true;
+        }
+
+        public void StopSpawning() =>
+            _canSpawn = false;
         
         private Vector3 GetRandomPositionAroundPoint(Vector3 point)
         {

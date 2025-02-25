@@ -18,7 +18,7 @@ namespace Runtime.Infrastructure.States
         public void Enter()
         {
             var playerView = _playerFactory.CreatePlayer(new Vector3(0,1.05f,0));
-            _weaponSpawner._spawnCenter = playerView.Transform;
+            _weaponSpawner.StartSpawning(playerView.Transform);
         }
 
         public void Exit()
