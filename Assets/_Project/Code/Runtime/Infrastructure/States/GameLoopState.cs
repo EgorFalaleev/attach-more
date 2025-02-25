@@ -7,9 +7,9 @@ namespace Runtime.Infrastructure.States
     public class GameLoopState : IState
     {
         private readonly IPlayerFactory _playerFactory;
-        private readonly WeaponSpawner _weaponSpawner;
+        private readonly IWeaponSpawner _weaponSpawner;
 
-        public GameLoopState(IPlayerFactory playerFactory, WeaponSpawner weaponSpawner)
+        public GameLoopState(IPlayerFactory playerFactory, IWeaponSpawner weaponSpawner)
         {
             _playerFactory = playerFactory;
             _weaponSpawner = weaponSpawner;
