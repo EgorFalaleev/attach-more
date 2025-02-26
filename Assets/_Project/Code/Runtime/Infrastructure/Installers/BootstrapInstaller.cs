@@ -1,12 +1,9 @@
-using Runtime.Gameplay.Enemies;
-using Runtime.Gameplay.Enemies.Factory;
-using Runtime.Gameplay.Enemies.Spawner;
 using Runtime.Gameplay.Player;
 using Runtime.Gameplay.Player.Factory;
-using Runtime.Gameplay.Player.Provider;
 using Runtime.Gameplay.Weapon;
 using Runtime.Gameplay.Weapon.Factory;
 using Runtime.Gameplay.Weapon.Spawner;
+using Runtime.Infrastructure.Assets;
 using Runtime.Infrastructure.Loading;
 using Runtime.Infrastructure.States;
 using Runtime.Infrastructure.States.StateMachine;
@@ -56,6 +53,7 @@ namespace Runtime.Infrastructure.Installers
         {
             Container.BindInterfacesAndSelfTo<InputService>().AsSingle();
             Container.Bind<ISceneLoader>().To<SceneLoader>().AsSingle();
+            Container.Bind<IAssetProvider>().To<AssetProvider>().AsSingle();
         }
 
         private void BindFactories()
