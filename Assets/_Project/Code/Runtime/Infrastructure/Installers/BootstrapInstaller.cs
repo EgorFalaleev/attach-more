@@ -59,7 +59,7 @@ namespace Runtime.Infrastructure.Installers
         private void BindFactories()
         {
             Container.Bind<IPlayerFactory>().To<PlayerFactory>().AsSingle();
-            Container.Bind<IWeaponFactory>().To<WeaponFactory>().AsSingle().WithArguments(_weaponPrefab).NonLazy();
+            Container.Bind<IWeaponFactory>().To<WeaponFactory>().AsSingle();
         }
 
         private void BindSpawners()

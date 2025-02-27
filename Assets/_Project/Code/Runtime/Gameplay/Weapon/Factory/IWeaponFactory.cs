@@ -5,7 +5,7 @@ namespace Runtime.Gameplay.Weapon.Factory
 {
     public interface IWeaponFactory
     {
-        void CreateWeapon(Vector3 position);
+        WeaponView CreateWeapon(Vector3 position);
         event Action<WeaponView> OnWeaponCreated;
     }
 }
