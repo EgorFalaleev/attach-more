@@ -1,14 +1,16 @@
-﻿namespace Runtime.Gameplay.Player.Provider
+﻿using Runtime.Gameplay.Player.Factory;
+
+namespace Runtime.Gameplay.Player.Provider
 {
     public class PlayerViewProvider : IPlayerViewProvider
     {
-        private readonly PlayerView _playerView;
+        private PlayerView _playerView;
 
         public PlayerView PlayerView => _playerView;
 
-        public PlayerViewProvider(PlayerView playerView)
+        public PlayerViewProvider(IPlayerFactory playerFactory)
         {
-            _playerView = playerView;
+            playerFactory.OnPlayerCreated += playerView => { _playerView = playerView; };
         }        
     }
 }

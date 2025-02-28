@@ -1,4 +1,5 @@
-﻿using Runtime.Constants;
+﻿using System;
+using Runtime.Constants;
 using Runtime.Infrastructure.Assets;
 using UnityEngine;
 using Zenject;
@@ -11,6 +12,8 @@ namespace Runtime.Gameplay.Player.Factory
         private readonly IAssetProvider _assetProvider;
         private readonly IInstantiator _instantiator;
 
+        public event Action<PlayerView> OnPlayerCreated; 
+        
         public PlayerFactory(IAssetProvider assetProvider, IInstantiator instantiator)
         {
             _assetProvider = assetProvider;
@@ -19,9 +22,13 @@ namespace Runtime.Gameplay.Player.Factory
 
         public PlayerView CreatePlayer(Vector3 position)
         {
-            var playerView = _assetProvider.Load<PlayerView>(Paths.Player);
-            return _instantiator.InstantiatePrefabForComponent<PlayerView>(playerView, position, Quaternion.identity,
+            var prefab = _assetProvider.Load<PlayerView>(Paths.Player);
+            
+            var playerView = _instantiator.InstantiatePrefabForComponent<PlayerView>(prefab, position, Quaternion.identity,
                 null);
+
+            OnPlayerCreated?.Invoke(playerView);
+            return playerView;
         }
     }
 }
