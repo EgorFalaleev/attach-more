@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Runtime.Gameplay.Attachment
 {
-    public class AttachmentController 
+    public class AttachmentController : IAttachmentController
     {
         private AttachableTree _attachableTree;
         private readonly IAttachableCollisionsRegistry _attachableCollisionsRegistry;
@@ -19,24 +19,28 @@ namespace Runtime.Gameplay.Attachment
             _attachableCollisionsRegistry.OnValidAttachCollision += PerformAttachment;
         }
 
+        public void CreateTree(IAttachableView parent)
+        {
+            var root = new AttachableNode();
+            _attachableTree = new AttachableTree();
+            _attachableTree.AddRoot(root, parent);
+        }
+
         private void PerformAttachment(IAttachableView parent, IAttachableView child)
         {
+            if (_attachableTree == null)
+                return;
+            
             if (!TryFindValidAttachOffset(parent, child, out var childOffset)) 
                 return;
-
-            if (_attachableTree == null)
-            {
-                var root = new AttachableNode();
-                _attachableTree = new AttachableTree();
-                _attachableTree.AddRoot(root, parent);
-            }
+            
             var parentNode = _attachableTree.FindNodeByAttachable(parent);
             var childNode = new AttachableNode();
             parentNode.AddChild(childNode);
             child.Attach(parent.Transform, childOffset);
             _attachableTree.AddToDictionaries(childNode, child);
         }
-        
+
         private bool TryFindValidAttachOffset(IAttachableView parent, IAttachableView child, out Vector3 childOffset)
         {
             var direction = child.Transform.position - parent.Transform.position;

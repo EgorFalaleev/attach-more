@@ -1,3 +1,6 @@
+using Runtime.Gameplay.Attachment;
+using Runtime.Gameplay.Attachment.Collisions;
+using Runtime.Gameplay.Attachment.Provider;
 using Runtime.Gameplay.Player.Factory;
 using Runtime.Gameplay.Player.Provider;
 using Runtime.Gameplay.Weapon.Factory;
@@ -16,12 +19,11 @@ namespace Runtime.Infrastructure.Installers
         public override void InstallBindings()
         {
             BindSelf();
-            BindStates();
-            BindStateMachine();
             BindServices();
             BindFactories();
-            BindPlayerViewProvider();
             BindSpawners();
+            BindStates();
+            BindStateMachine();
         }
 
         public void Initialize()
@@ -47,9 +49,13 @@ namespace Runtime.Infrastructure.Installers
 
         private void BindServices()
         {
-            Container.BindInterfacesAndSelfTo<InputService>().AsSingle();
+            Container.Bind<IInputService>().To<InputService>().AsSingle();
             Container.Bind<ISceneLoader>().To<SceneLoader>().AsSingle();
             Container.Bind<IAssetProvider>().To<AssetProvider>().AsSingle();
+            Container.Bind<IPlayerViewProvider>().To<PlayerViewProvider>().AsSingle();
+            Container.Bind<IAttachableProvider>().To<AttachableProvider>().AsSingle();
+            Container.Bind<IAttachableCollisionsRegistry>().To<AttachableCollisionsRegistry>().AsSingle();
+            Container.Bind<IAttachmentController>().To<AttachmentController>().AsSingle();
         }
 
         private void BindFactories()
@@ -57,9 +63,6 @@ namespace Runtime.Infrastructure.Installers
             Container.Bind<IPlayerFactory>().To<PlayerFactory>().AsSingle();
             Container.Bind<IWeaponFactory>().To<WeaponFactory>().AsSingle();
         }
-
-        private void BindPlayerViewProvider() =>
-            Container.Bind<IPlayerViewProvider>().To<PlayerViewProvider>().AsSingle();
 
         private void BindSpawners()
         {
