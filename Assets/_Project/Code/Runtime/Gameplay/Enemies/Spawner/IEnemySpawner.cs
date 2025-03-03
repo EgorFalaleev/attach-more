@@ -1,8 +1,10 @@
-﻿namespace Runtime.Gameplay.Enemies.Spawner
+﻿using UnityEngine;
+
+namespace Runtime.Gameplay.Enemies.Spawner
 {
     public interface IEnemySpawner
     {
-        void StartSpawning();
+        void StartSpawning(Transform spawnCenter);
         void StopSpawning();
     }
 }

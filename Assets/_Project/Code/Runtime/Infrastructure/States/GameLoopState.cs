@@ -36,7 +36,7 @@ namespace Runtime.Infrastructure.States
             _attachmentController.CreateTree(playerView);
             
             _weaponSpawner.StartSpawning(playerView.Transform);
-            _enemySpawner.StartSpawning();
+            _enemySpawner.StartSpawning(playerView.Transform);
         }
 
         public void Exit()
