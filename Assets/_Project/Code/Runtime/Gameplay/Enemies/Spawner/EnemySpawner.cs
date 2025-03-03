@@ -4,12 +4,13 @@ using Zenject;
 
 namespace Runtime.Gameplay.Enemies.Spawner
 {
-    public class EnemySpawner : ITickable
+    public class EnemySpawner : ITickable, IEnemySpawner
     {
         private readonly IEnemyFactory _enemyFactory;
         private readonly IEnemyViewFactory _enemyViewFactory;
 
         private float _timer;
+        private bool _canSpawn;
 
         public EnemySpawner(IEnemyFactory enemyFactory, IEnemyViewFactory enemyViewFactory)
         {
@@ -19,6 +20,9 @@ namespace Runtime.Gameplay.Enemies.Spawner
         
         public void Tick()
         {
+            if (!_canSpawn)
+                return;
+            
             _timer += Time.deltaTime;
 
             if (_timer >= 1f)
@@ -27,6 +31,16 @@ namespace Runtime.Gameplay.Enemies.Spawner
                 _enemyViewFactory.CreateView(enemy);
                 _timer = 0f;
             }
+        }
+
+        public void StartSpawning()
+        {
+            _canSpawn = true;
+        }
+
+        public void StopSpawning()
+        {
+            _canSpawn = false;
         }
     }
 }
