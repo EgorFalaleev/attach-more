@@ -34,7 +34,7 @@ namespace Runtime.Gameplay.Weapon
             transform.position = _parent.position + _offset;
         }
         
-        public async UniTaskVoid Attach(Transform parent, Vector3 offset)
+        public async UniTask Attach(Transform parent, Vector3 offset)
         {
             _parent = parent;
             _offset = offset;

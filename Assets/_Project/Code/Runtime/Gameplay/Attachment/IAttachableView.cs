@@ -6,7 +6,7 @@ namespace Runtime.Gameplay.Attachment
     public interface IAttachableView
     {
         Transform Transform { get; }
-        UniTaskVoid Attach(Transform parent, Vector3 offset);
+        UniTask Attach(Transform parent, Vector3 offset);
         bool IsAttached { get; }
         float AttachmentRadius { get; }
     }

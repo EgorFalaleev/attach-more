@@ -30,7 +30,7 @@ namespace Runtime.Gameplay.Player
                 Move(_inputService.MoveDirection * (_speed * Time.deltaTime));
         }
 
-        public async UniTaskVoid Attach(Transform parent, Vector3 offset)
+        public async UniTask Attach(Transform parent, Vector3 offset)
         {
             
         }
