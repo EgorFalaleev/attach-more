@@ -1,5 +1,6 @@
 ﻿using Runtime.Gameplay.Attachment;
 using Runtime.Gameplay.Attachment.Provider;
+using Runtime.Gameplay.Enemies.Spawner;
 using Runtime.Gameplay.Player.Factory;
 using Runtime.Gameplay.Weapon.Spawner;
 using UnityEngine;
@@ -12,13 +13,20 @@ namespace Runtime.Infrastructure.States
         private readonly IWeaponSpawner _weaponSpawner;
         private readonly IAttachableProvider _attachableProvider;
         private readonly IAttachmentController _attachmentController;
+        private readonly IEnemySpawner _enemySpawner;
 
-        public GameLoopState(IPlayerFactory playerFactory, IWeaponSpawner weaponSpawner, IAttachableProvider attachableProvider, IAttachmentController attachmentController)
+        public GameLoopState(
+            IPlayerFactory playerFactory, 
+            IWeaponSpawner weaponSpawner, 
+            IAttachableProvider attachableProvider, 
+            IAttachmentController attachmentController,
+            IEnemySpawner enemySpawner)
         {
             _playerFactory = playerFactory;
             _weaponSpawner = weaponSpawner;
             _attachableProvider = attachableProvider;
             _attachmentController = attachmentController;
+            _enemySpawner = enemySpawner;
         }
         
         public void Enter()
@@ -28,6 +36,7 @@ namespace Runtime.Infrastructure.States
             _attachmentController.CreateTree(playerView);
             
             _weaponSpawner.StartSpawning(playerView.Transform);
+            _enemySpawner.StartSpawning();
         }
 
         public void Exit()

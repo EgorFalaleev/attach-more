@@ -1,6 +1,8 @@
 using Runtime.Gameplay.Attachment;
 using Runtime.Gameplay.Attachment.Collisions;
 using Runtime.Gameplay.Attachment.Provider;
+using Runtime.Gameplay.Enemies.Factory;
+using Runtime.Gameplay.Enemies.Spawner;
 using Runtime.Gameplay.Player.Factory;
 using Runtime.Gameplay.Player.Provider;
 using Runtime.Gameplay.Weapon.Factory;
@@ -62,11 +64,14 @@ namespace Runtime.Infrastructure.Installers
         {
             Container.Bind<IPlayerFactory>().To<PlayerFactory>().AsSingle();
             Container.Bind<IWeaponFactory>().To<WeaponFactory>().AsSingle();
+            Container.Bind<IEnemyFactory>().To<EnemyFactory>().AsSingle();
+            Container.Bind<IEnemyViewFactory>().To<EnemyViewFactory>().AsSingle();
         }
 
         private void BindSpawners()
         {
             Container.BindInterfacesAndSelfTo<WeaponSpawner>().AsSingle();
+            Container.BindInterfacesAndSelfTo<EnemySpawner>().AsSingle();
         }
     }
 }
