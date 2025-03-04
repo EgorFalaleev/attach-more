@@ -2,6 +2,7 @@ using Runtime.Gameplay.Attachment;
 using Runtime.Gameplay.Attachment.Collisions;
 using Runtime.Gameplay.Attachment.Provider;
 using Runtime.Gameplay.Enemies.Factory;
+using Runtime.Gameplay.Enemies.Provider;
 using Runtime.Gameplay.Enemies.Spawner;
 using Runtime.Gameplay.Player.Factory;
 using Runtime.Gameplay.Player.Provider;
@@ -55,6 +56,7 @@ namespace Runtime.Infrastructure.Installers
             Container.Bind<ISceneLoader>().To<SceneLoader>().AsSingle();
             Container.Bind<IAssetProvider>().To<AssetProvider>().AsSingle();
             Container.Bind<IPlayerViewProvider>().To<PlayerViewProvider>().AsSingle();
+            Container.Bind<IEnemiesProvider>().To<EnemiesProvider>().AsSingle();
             Container.Bind<IAttachableProvider>().To<AttachableProvider>().AsSingle();
             Container.Bind<IAttachableCollisionsRegistry>().To<AttachableCollisionsRegistry>().AsSingle();
             Container.Bind<IAttachmentController>().To<AttachmentController>().AsSingle();
