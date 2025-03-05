@@ -18,7 +18,7 @@ namespace Runtime.Gameplay.Enemies.Factory
         public Enemy CreateEnemy(Vector3 position)
         {
             var enemy = new Enemy()
-                { Position = position, TargetPosition = _playerViewProvider.PlayerView.transform.position };
+                { Position = position, Target = _playerViewProvider.PlayerView.transform };
 
             _enemiesProvider.AddEnemy(enemy);
             
