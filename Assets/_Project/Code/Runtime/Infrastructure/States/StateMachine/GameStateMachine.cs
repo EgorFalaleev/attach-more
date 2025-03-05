@@ -2,7 +2,7 @@
 
 namespace Runtime.Infrastructure.States.StateMachine
 {
-    public class GameStateMachine : IGameStateMachine
+    public class GameStateMachine : IGameStateMachine, ITickable
     {
         private IState _activeState;
 
@@ -11,6 +11,12 @@ namespace Runtime.Infrastructure.States.StateMachine
         public GameStateMachine(DiContainer container)
         {
             _container = container;
+        }
+
+        public void Tick()
+        {
+            if (_activeState is ITickable tickableState)
+                tickableState.Tick();
         }
 
         public void Enter<TState>() where TState : class, IState

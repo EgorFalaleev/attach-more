@@ -1,6 +1,7 @@
 using Runtime.Gameplay.Attachment;
 using Runtime.Gameplay.Attachment.Collisions;
 using Runtime.Gameplay.Attachment.Provider;
+using Runtime.Gameplay.Enemies;
 using Runtime.Gameplay.Enemies.Factory;
 using Runtime.Gameplay.Enemies.Provider;
 using Runtime.Gameplay.Enemies.Spawner;
@@ -25,6 +26,7 @@ namespace Runtime.Infrastructure.Installers
             BindServices();
             BindFactories();
             BindSpawners();
+            BindGameplaySystems();
             BindStates();
             BindStateMachine();
         }
@@ -41,8 +43,8 @@ namespace Runtime.Infrastructure.Installers
 
         private void BindStates()
         {
-            Container.BindInterfacesAndSelfTo<BootstrapState>().AsSingle();
-            Container.BindInterfacesAndSelfTo<GameLoopState>().AsSingle();
+            Container.Bind<BootstrapState>().AsSingle();
+            Container.Bind<GameLoopState>().AsSingle();
         }
 
         private void BindStateMachine()
@@ -74,6 +76,11 @@ namespace Runtime.Infrastructure.Installers
         {
             Container.BindInterfacesAndSelfTo<WeaponSpawner>().AsSingle();
             Container.BindInterfacesAndSelfTo<EnemySpawner>().AsSingle();
+        }
+
+        private void BindGameplaySystems()
+        {
+            Container.Bind<EnemyMovementSystem>().AsSingle();
         }
     }
 }
