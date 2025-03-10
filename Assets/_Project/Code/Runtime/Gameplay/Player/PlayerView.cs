@@ -1,6 +1,5 @@
 ﻿using Cysharp.Threading.Tasks;
 using Runtime.Gameplay.Attachment;
-using Runtime.Services.Input;
 using UnityEngine;
 using Zenject;
 
@@ -8,26 +7,26 @@ namespace Runtime.Gameplay.Player
 {
     public class PlayerView : MonoBehaviour, IAttachableView
     {
-        [SerializeField] private float _speed = 5f;
         [SerializeField] private AttachZone _attachZone;
 
         public float AttachmentRadius => _attachZone.Radius;
         public Transform Transform => transform;
         public bool IsAttached { get; set; }
-        
-        private IInputService _inputService;
+
+        private Player _player;
         
         [Inject]
-        private void Construct(IInputService inputService)
+        private void Construct(Player player)
         {
-            _inputService = inputService;
+            _player = player;
             IsAttached = true;
         }
 
         private void Update()
         {
-            if (_inputService.MoveDirection != Vector3.zero)
-                Move(_inputService.MoveDirection * (_speed * Time.deltaTime));
+            var moveDirection = _player.GetMovementDirection();
+            if (moveDirection != Vector3.zero)
+                Move(moveDirection * Time.deltaTime);
         }
 
         public async UniTask Attach(Transform parent, Vector3 offset)
