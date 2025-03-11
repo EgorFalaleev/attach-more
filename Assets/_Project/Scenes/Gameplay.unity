@@ -402,7 +402,7 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 2
+    m_Type: 0
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -610,11 +610,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f86f81d357149f89114074dd0bea3ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerView: {fileID: 8999042537251678495, guid: 0fe304fbf0774fa4e95fcd439e880d07,
-    type: 3}
-  _spawnPoint: {fileID: 1431108620}
-  _enemyView: {fileID: 519475741177354255, guid: 521601c2d0cf48044afc2e01622460dd,
-    type: 3}
 --- !u!1 &1431108619
 GameObject:
   m_ObjectHideFlags: 0

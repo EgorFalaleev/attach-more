@@ -1,34 +1,18 @@
-﻿using System;
-using Runtime.Constants;
-using Runtime.Infrastructure.Assets;
-using UnityEngine;
-using Zenject;
-using Quaternion = UnityEngine.Quaternion;
+﻿using Runtime.Services.Input;
 
 namespace Runtime.Gameplay.Player.Factory
 {
     public class PlayerFactory : IPlayerFactory
     {
-        private readonly IAssetProvider _assetProvider;
-        private readonly IInstantiator _instantiator;
+        private readonly IInputService _inputService;
 
-        public event Action<PlayerView> OnPlayerCreated; 
-        
-        public PlayerFactory(IAssetProvider assetProvider, IInstantiator instantiator)
+        public PlayerFactory(IInputService inputService)
         {
-            _assetProvider = assetProvider;
-            _instantiator = instantiator;
+            _inputService = inputService;
         }
 
-        public PlayerView CreatePlayer(Vector3 position)
-        {
-            var prefab = _assetProvider.Load<PlayerView>(Paths.Player);
-            
-            var playerView = _instantiator.InstantiatePrefabForComponent<PlayerView>(prefab, position, Quaternion.identity,
-                null);
-
-            OnPlayerCreated?.Invoke(playerView);
-            return playerView;
-        }
+        // TODO add player config
+        public Player CreatePlayer() => 
+            new(_inputService, 5f);
     }
 }

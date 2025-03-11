@@ -1,7 +1,6 @@
 ﻿using Cysharp.Threading.Tasks;
 using Runtime.Gameplay.Attachment;
 using UnityEngine;
-using Zenject;
 
 namespace Runtime.Gameplay.Player
 {
@@ -14,9 +13,8 @@ namespace Runtime.Gameplay.Player
         public bool IsAttached { get; set; }
 
         private Player _player;
-        
-        [Inject]
-        private void Construct(Player player)
+
+        public void Initialize(Player player)
         {
             _player = player;
             IsAttached = true;

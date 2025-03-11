@@ -8,9 +8,9 @@ namespace Runtime.Gameplay.Player.Provider
 
         public PlayerView PlayerView => _playerView;
 
-        public PlayerViewProvider(IPlayerFactory playerFactory)
+        public PlayerViewProvider(IPlayerViewFactory playerViewFactory)
         {
-            playerFactory.OnPlayerCreated += playerView => { _playerView = playerView; };
+            playerViewFactory.OnPlayerViewCreated += playerView => { _playerView = playerView; };
         }        
     }
 }
