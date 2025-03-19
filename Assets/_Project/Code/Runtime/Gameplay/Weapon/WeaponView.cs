@@ -15,6 +15,7 @@ namespace Runtime.Gameplay.Weapon
         private Vector3 _offset;
         private Transform _parent;
 
+        public IAttachable Attachable { get; }
         public Transform Transform => transform;
         public bool IsAttached => _isAttached;
         public float AttachmentRadius => _weaponAttachZone.Radius;
@@ -36,10 +37,6 @@ namespace Runtime.Gameplay.Weapon
         
         public async UniTask Attach(Transform parent, Vector3 offset)
         {
-            _parent = parent;
-            _offset = offset;
-            _isAttached = true;
-            
             await _attachmentLineAnimator.AnimateLineAsync(parent, transform);
             await MoveTowardsAttachedPositionAsync(1f);
 

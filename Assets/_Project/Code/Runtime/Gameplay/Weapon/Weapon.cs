@@ -1,4 +1,5 @@
-﻿using Runtime.Gameplay.Attachment;
+﻿using System;
+using Runtime.Gameplay.Attachment;
 using UnityEngine;
 
 namespace Runtime.Gameplay.Weapon
@@ -16,6 +17,7 @@ namespace Runtime.Gameplay.Weapon
         {
             AttachmentRadius = attachmentRadius;
         }
+        public event Action<IAttachable> OnAttached;
         
         public void Attach(Transform parent, Vector3 offset)
         {
@@ -23,6 +25,7 @@ namespace Runtime.Gameplay.Weapon
             _offset = offset;
             _isAttached = true;
         }
+
 
         public Vector3 GetAttachedPosition =>
             _parent.position + _offset;
