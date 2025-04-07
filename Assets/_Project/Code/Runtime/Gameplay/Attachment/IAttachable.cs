@@ -1,5 +1,4 @@
 ﻿using System;
-using UnityEngine;
 
 namespace Runtime.Gameplay.Attachment
 {
@@ -7,7 +6,6 @@ namespace Runtime.Gameplay.Attachment
     {
         bool IsAttached { get; }
         float AttachmentRadius { get; }
-        void Attach(Transform parent, Vector3 offset);
-        event Action<Transform> OnAttached;
+        event Action<IAttacher> OnAttached;
     }
 }

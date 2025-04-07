@@ -13,17 +13,20 @@ namespace Runtime.Gameplay.Weapon
         private Vector3 _offset;
         private bool _isAttached;
 
+        public event Action<Transform> OnAttached;
+        
         public Weapon(float attachmentRadius)
         {
             AttachmentRadius = attachmentRadius;
         }
-        public event Action<IAttachable> OnAttached;
         
         public void Attach(Transform parent, Vector3 offset)
         {
             _parent = parent;
             _offset = offset;
             _isAttached = true;
+            
+            OnAttached?.Invoke(parent);
         }
 
 
