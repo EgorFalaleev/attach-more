@@ -6,19 +6,19 @@ namespace Runtime.Gameplay.Enemies.Factory
 {
     public class EnemyFactory : IEnemyFactory
     {
-        private readonly IPlayerViewProvider _playerViewProvider;
+        private readonly IPlayerProvider _playerProvider;
         private readonly IEnemiesProvider _enemiesProvider;
 
-        public EnemyFactory(IPlayerViewProvider playerViewProvider, IEnemiesProvider enemiesProvider)
+        public EnemyFactory(IPlayerProvider playerProvider, IEnemiesProvider enemiesProvider)
         {
-            _playerViewProvider = playerViewProvider;
+            _playerProvider = playerProvider;
             _enemiesProvider = enemiesProvider;
         }
 
         public Enemy CreateEnemy(Vector3 position)
         {
             var enemy = new Enemy()
-                { Position = position, Target = _playerViewProvider.PlayerView.transform };
+                { Position = position, Target = _playerProvider.Player.transform };
 
             _enemiesProvider.AddEnemy(enemy);
             

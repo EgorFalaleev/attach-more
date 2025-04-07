@@ -57,7 +57,7 @@ namespace Runtime.Infrastructure.Installers
             Container.Bind<IInputService>().To<InputService>().AsSingle();
             Container.Bind<ISceneLoader>().To<SceneLoader>().AsSingle();
             Container.Bind<IAssetProvider>().To<AssetProvider>().AsSingle();
-            Container.Bind<IPlayerViewProvider>().To<PlayerViewProvider>().AsSingle();
+            Container.Bind<IPlayerProvider>().To<PlayerProvider>().AsSingle();
             Container.Bind<IEnemiesProvider>().To<EnemiesProvider>().AsSingle();
             Container.Bind<IAttachableProvider>().To<AttachableProvider>().AsSingle();
             Container.Bind<IAttachableCollisionsRegistry>().To<AttachableCollisionsRegistry>().AsSingle();
@@ -67,7 +67,6 @@ namespace Runtime.Infrastructure.Installers
         private void BindFactories()
         {
             Container.Bind<IPlayerFactory>().To<PlayerFactory>().AsSingle();
-            Container.Bind<IPlayerViewFactory>().To<PlayerViewFactory>().AsSingle();
             Container.Bind<IWeaponFactory>().To<WeaponFactory>().AsSingle();
             Container.Bind<IEnemyFactory>().To<EnemyFactory>().AsSingle();
             Container.Bind<IEnemyViewFactory>().To<EnemyViewFactory>().AsSingle();

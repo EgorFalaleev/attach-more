@@ -1,20 +1,42 @@
-﻿using Runtime.Services.Input;
+﻿using Cysharp.Threading.Tasks;
+using Runtime.Gameplay.Attachment;
+using Runtime.Services.Input;
 using UnityEngine;
+using Zenject;
 
 namespace Runtime.Gameplay.Player
 {
-    public class Player
+    public class Player : MonoBehaviour, IAttachableView
     {
-        private readonly IInputService _inputService;
-        private float _speed;
+        [SerializeField] private float _speed;
+        [SerializeField] private AttachZone _attachZone;
 
-        public Player(IInputService inputService, float speed)
+        private IInputService _inputService;
+
+        public Transform Transform => transform;
+        public bool IsAttached => true;
+        public float AttachmentRadius => _attachZone.Radius;
+        
+        [Inject]
+        private void Construct(IInputService inputService)
         {
             _inputService = inputService;
-            _speed = speed;
+        }
+        
+        private void Update()
+        {
+            Move(_inputService.MoveDirection * (_speed * Time.deltaTime));
         }
 
-        public Vector3 GetMovementDirection() =>
-            _inputService.MoveDirection * _speed;
+        private void Move(Vector3 direction)
+        {
+            if (direction != Vector3.zero)
+                transform.Translate(direction);
+        }
+
+        public async UniTask Attach(Transform parent, Vector3 offset)
+        {
+            
+        }
     }
 }

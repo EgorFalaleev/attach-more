@@ -12,7 +12,6 @@ namespace Runtime.Infrastructure.States
     public class GameLoopState : IState, ITickable
     {
         private readonly IPlayerFactory _playerFactory;
-        private readonly IPlayerViewFactory _playerViewFactory;
         private readonly IWeaponSpawner _weaponSpawner;
         private readonly IAttachableProvider _attachableProvider;
         private readonly IAttachmentController _attachmentController;
@@ -20,8 +19,7 @@ namespace Runtime.Infrastructure.States
         private readonly EnemyMovementSystem _enemyMovementSystem;
 
         public GameLoopState(
-            IPlayerFactory playerFactory,
-            IPlayerViewFactory playerViewFactory, 
+            IPlayerFactory playerFactory, 
             IWeaponSpawner weaponSpawner, 
             IAttachableProvider attachableProvider, 
             IAttachmentController attachmentController,
@@ -29,7 +27,6 @@ namespace Runtime.Infrastructure.States
             EnemyMovementSystem enemyMovementSystem)
         {
             _playerFactory = playerFactory;
-            _playerViewFactory = playerViewFactory;
             _weaponSpawner = weaponSpawner;
             _attachableProvider = attachableProvider;
             _attachmentController = attachmentController;
@@ -39,8 +36,7 @@ namespace Runtime.Infrastructure.States
         
         public void Enter()
         {
-            var player = _playerFactory.CreatePlayer();
-            var playerView = _playerViewFactory.CreatePlayerView(player, new Vector3(0,1.05f,0));
+            var playerView = _playerFactory.CreatePlayer(new Vector3(0,1.05f,0));
             _attachableProvider.AddAttachable(playerView);
             _attachmentController.CreateTree(playerView);
             
