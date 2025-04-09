@@ -16,22 +16,19 @@ namespace Runtime.Infrastructure.States
         private readonly IAttachableProvider _attachableProvider;
         private readonly IAttachmentController _attachmentController;
         private readonly IEnemySpawner _enemySpawner;
-        private readonly EnemyMovementSystem _enemyMovementSystem;
 
         public GameLoopState(
             IPlayerFactory playerFactory, 
             IWeaponSpawner weaponSpawner, 
             IAttachableProvider attachableProvider, 
             IAttachmentController attachmentController,
-            IEnemySpawner enemySpawner,
-            EnemyMovementSystem enemyMovementSystem)
+            IEnemySpawner enemySpawner)
         {
             _playerFactory = playerFactory;
             _weaponSpawner = weaponSpawner;
             _attachableProvider = attachableProvider;
             _attachmentController = attachmentController;
             _enemySpawner = enemySpawner;
-            _enemyMovementSystem = enemyMovementSystem;
         }
         
         public void Enter()
@@ -50,7 +47,6 @@ namespace Runtime.Infrastructure.States
 
         public void Tick()
         {
-            _enemyMovementSystem.Tick();
         }
     }
 }

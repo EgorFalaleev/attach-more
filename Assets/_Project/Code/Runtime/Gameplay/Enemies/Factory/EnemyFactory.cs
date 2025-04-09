@@ -1,28 +1,31 @@
-﻿using Runtime.Gameplay.Enemies.Provider;
+﻿using Runtime.Constants;
 using Runtime.Gameplay.Player.Provider;
+using Runtime.Infrastructure.Assets;
 using UnityEngine;
+using Zenject;
 
 namespace Runtime.Gameplay.Enemies.Factory
 {
     public class EnemyFactory : IEnemyFactory
     {
+        private readonly IAssetProvider _assetProvider;
         private readonly IPlayerProvider _playerProvider;
-        private readonly IEnemiesProvider _enemiesProvider;
+        private readonly IInstantiator _instantiator;
 
-        public EnemyFactory(IPlayerProvider playerProvider, IEnemiesProvider enemiesProvider)
+        public EnemyFactory(IAssetProvider assetProvider, IPlayerProvider playerProvider, IInstantiator instantiator)
         {
+            _assetProvider = assetProvider;
             _playerProvider = playerProvider;
-            _enemiesProvider = enemiesProvider;
+            _instantiator = instantiator;
         }
 
-        public Enemy CreateEnemy(Vector3 position)
+        public EnemyView CreateEnemy(Vector3 spawnPoint)
         {
-            var enemy = new Enemy()
-                { Position = position, Target = _playerProvider.Player.transform };
-
-            _enemiesProvider.AddEnemy(enemy);
+            var prefab = _assetProvider.Load<EnemyView>(Paths.Enemy);
             
-            return enemy;
+            var view = _instantiator.InstantiatePrefabForComponent<EnemyView>(prefab, spawnPoint, Quaternion.identity, null);
+            view.Initialize(_playerProvider.Player.transform);
+            return view;
         }
     }
 }

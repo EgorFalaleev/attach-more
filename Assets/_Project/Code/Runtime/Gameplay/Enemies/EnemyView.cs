@@ -4,16 +4,21 @@ namespace Runtime.Gameplay.Enemies
 {
     public class EnemyView : MonoBehaviour
     {
-        private Enemy _enemy;
+        [SerializeField] private float _speed = 3f;
+        private Transform _target;
 
-        public void Initialize(Enemy enemy)
+        public void Initialize(Transform target)
         {
-            _enemy = enemy;
+            _target = target;
         }
 
         private void Update()
         {
-            transform.position = _enemy.Position;
+            var direction = (_target.position - transform.position).normalized;
+            Move(direction);
         }
+
+        private void Move(Vector3 direction) => 
+            transform.Translate(direction * (_speed * Time.deltaTime));
     }
 }

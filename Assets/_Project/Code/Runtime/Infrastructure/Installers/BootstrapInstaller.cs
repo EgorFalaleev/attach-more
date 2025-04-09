@@ -1,9 +1,7 @@
 using Runtime.Gameplay.Attachment;
 using Runtime.Gameplay.Attachment.Collisions;
 using Runtime.Gameplay.Attachment.Provider;
-using Runtime.Gameplay.Enemies;
 using Runtime.Gameplay.Enemies.Factory;
-using Runtime.Gameplay.Enemies.Provider;
 using Runtime.Gameplay.Enemies.Spawner;
 using Runtime.Gameplay.Player.Factory;
 using Runtime.Gameplay.Player.Provider;
@@ -26,7 +24,6 @@ namespace Runtime.Infrastructure.Installers
             BindServices();
             BindFactories();
             BindSpawners();
-            BindGameplaySystems();
             BindStates();
             BindStateMachine();
         }
@@ -58,7 +55,6 @@ namespace Runtime.Infrastructure.Installers
             Container.Bind<ISceneLoader>().To<SceneLoader>().AsSingle();
             Container.Bind<IAssetProvider>().To<AssetProvider>().AsSingle();
             Container.Bind<IPlayerProvider>().To<PlayerProvider>().AsSingle();
-            Container.Bind<IEnemiesProvider>().To<EnemiesProvider>().AsSingle();
             Container.Bind<IAttachableProvider>().To<AttachableProvider>().AsSingle();
             Container.Bind<IAttachableCollisionsRegistry>().To<AttachableCollisionsRegistry>().AsSingle();
             Container.Bind<IAttachmentController>().To<AttachmentController>().AsSingle();
@@ -69,18 +65,12 @@ namespace Runtime.Infrastructure.Installers
             Container.Bind<IPlayerFactory>().To<PlayerFactory>().AsSingle();
             Container.Bind<IWeaponFactory>().To<WeaponFactory>().AsSingle();
             Container.Bind<IEnemyFactory>().To<EnemyFactory>().AsSingle();
-            Container.Bind<IEnemyViewFactory>().To<EnemyViewFactory>().AsSingle();
         }
 
         private void BindSpawners()
         {
             Container.BindInterfacesAndSelfTo<WeaponSpawner>().AsSingle();
             Container.BindInterfacesAndSelfTo<EnemySpawner>().AsSingle();
-        }
-
-        private void BindGameplaySystems()
-        {
-            Container.Bind<EnemyMovementSystem>().AsSingle();
         }
     }
 }

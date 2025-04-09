@@ -7,16 +7,14 @@ namespace Runtime.Gameplay.Enemies.Spawner
     public class EnemySpawner : ITickable, IEnemySpawner
     {
         private readonly IEnemyFactory _enemyFactory;
-        private readonly IEnemyViewFactory _enemyViewFactory;
 
         private Transform _spawnCenter;
         private float _timer;
         private bool _canSpawn;
 
-        public EnemySpawner(IEnemyFactory enemyFactory, IEnemyViewFactory enemyViewFactory)
+        public EnemySpawner(IEnemyFactory enemyFactory)
         {
             _enemyFactory = enemyFactory;
-            _enemyViewFactory = enemyViewFactory;
         }
         
         public void Tick()
@@ -28,8 +26,7 @@ namespace Runtime.Gameplay.Enemies.Spawner
 
             if (_timer >= 4f)
             {
-                var enemy = _enemyFactory.CreateEnemy(GetRandomPosition(_spawnCenter.position, 3f, 10f));
-                _enemyViewFactory.CreateView(enemy);
+                _enemyFactory.CreateEnemy(GetRandomPosition(_spawnCenter.position, 3f, 10f));
                 _timer = 0f;
             }
         }
