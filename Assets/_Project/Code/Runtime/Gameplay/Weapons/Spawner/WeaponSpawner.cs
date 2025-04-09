@@ -1,8 +1,8 @@
-﻿using Runtime.Gameplay.Weapon.Factory;
+﻿using Runtime.Gameplay.Weapons.Factory;
 using UnityEngine;
 using Zenject;
 
-namespace Runtime.Gameplay.Weapon.Spawner
+namespace Runtime.Gameplay.Weapons.Spawner
 {
     public class WeaponSpawner : ITickable, IWeaponSpawner
     {

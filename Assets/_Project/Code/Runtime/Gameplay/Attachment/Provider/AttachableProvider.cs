@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Runtime.Gameplay.Weapon.Factory;
+using Runtime.Gameplay.Weapons.Factory;
 
 namespace Runtime.Gameplay.Attachment.Provider
 {

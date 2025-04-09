@@ -3,7 +3,7 @@ using Runtime.Gameplay.Attachment.Provider;
 using Runtime.Gameplay.Enemies;
 using Runtime.Gameplay.Enemies.Spawner;
 using Runtime.Gameplay.Player.Factory;
-using Runtime.Gameplay.Weapon.Spawner;
+using Runtime.Gameplay.Weapons.Spawner;
 using UnityEngine;
 using Zenject;
 

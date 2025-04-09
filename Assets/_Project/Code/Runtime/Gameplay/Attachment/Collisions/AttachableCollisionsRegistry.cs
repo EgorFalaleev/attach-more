@@ -1,6 +1,6 @@
 ﻿using System;
-using Runtime.Gameplay.Weapon;
-using Runtime.Gameplay.Weapon.Factory;
+using Runtime.Gameplay.Weapons;
+using Runtime.Gameplay.Weapons.Factory;
 
 namespace Runtime.Gameplay.Attachment.Collisions
 {
@@ -17,9 +17,9 @@ namespace Runtime.Gameplay.Attachment.Collisions
             _weaponFactory.OnWeaponCreated += RegisterWeapon;
         }
 
-        private void RegisterWeapon(WeaponView weaponView)
+        private void RegisterWeapon(Weapon weapon)
         {
-            weaponView.OnWeaponAttachedOtherAttachable += CheckValidAttachment ;
+            weapon.OnWeaponAttachedOtherAttachable += CheckValidAttachment ;
         }
 
         private void CheckValidAttachment(IAttachableView attachable1, IAttachableView attachable2)

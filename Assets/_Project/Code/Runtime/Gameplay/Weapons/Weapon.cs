@@ -3,9 +3,9 @@ using Cysharp.Threading.Tasks;
 using Runtime.Gameplay.Attachment;
 using UnityEngine;
 
-namespace Runtime.Gameplay.Weapon
+namespace Runtime.Gameplay.Weapons
 {
-    public class WeaponView : MonoBehaviour, IAttachableView
+    public class Weapon : MonoBehaviour, IAttachableView
     {
         [SerializeField] private AttachZone _weaponAttachZone;
         [SerializeField] private AttachmentLineAnimator _attachmentLineAnimator;

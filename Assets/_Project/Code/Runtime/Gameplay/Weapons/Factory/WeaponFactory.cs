@@ -4,14 +4,14 @@ using Runtime.Infrastructure.Assets;
 using UnityEngine;
 using Zenject;
 
-namespace Runtime.Gameplay.Weapon.Factory
+namespace Runtime.Gameplay.Weapons.Factory
 {
     public class WeaponFactory : IWeaponFactory
     {
         private readonly IAssetProvider _assetProvider;
         private readonly IInstantiator _instantiator;
 
-        public event Action<WeaponView> OnWeaponCreated; 
+        public event Action<Weapon> OnWeaponCreated; 
 
         public WeaponFactory(IAssetProvider assetProvider, IInstantiator instantiator)
         {
@@ -19,10 +19,10 @@ namespace Runtime.Gameplay.Weapon.Factory
             _instantiator = instantiator;
         }
         
-        public WeaponView CreateWeapon(Vector3 position)
+        public Weapon CreateWeapon(Vector3 position)
         {
-            var prefab = _assetProvider.Load<WeaponView>(Paths.Weapon);
-            var weapon = _instantiator.InstantiatePrefabForComponent<WeaponView>(prefab, position, Quaternion.identity, null);
+            var prefab = _assetProvider.Load<Weapon>(Paths.Weapon);
+            var weapon = _instantiator.InstantiatePrefabForComponent<Weapon>(prefab, position, Quaternion.identity, null);
             
             OnWeaponCreated?.Invoke(weapon);
             return weapon;

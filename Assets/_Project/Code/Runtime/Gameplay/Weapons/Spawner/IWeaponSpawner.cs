@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Runtime.Gameplay.Weapon.Spawner
+namespace Runtime.Gameplay.Weapons.Spawner
 {
     public interface IWeaponSpawner
     {
