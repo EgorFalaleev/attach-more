@@ -8,7 +8,7 @@ namespace Runtime.Gameplay.Attachment.Collisions
     {
         private readonly IWeaponFactory _weaponFactory;
 
-        public event Action<IAttachableView, IAttachableView> OnValidAttachCollision; 
+        public event Action<IAttachable, IAttachable> OnValidAttachCollision; 
         
         public AttachableCollisionsRegistry(IWeaponFactory weaponFactory)
         {
@@ -22,7 +22,7 @@ namespace Runtime.Gameplay.Attachment.Collisions
             weapon.OnWeaponAttachedOtherAttachable += CheckValidAttachment ;
         }
 
-        private void CheckValidAttachment(IAttachableView attachable1, IAttachableView attachable2)
+        private void CheckValidAttachment(IAttachable attachable1, IAttachable attachable2)
         {
             if (attachable1 == null || attachable2 == null)
                 return;

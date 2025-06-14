@@ -9,13 +9,13 @@ namespace Runtime.Gameplay.Attachment
         [SerializeField] private Collider _collider;
 
         public float Radius => _collider.bounds.extents.x;
-        public event Action<IAttachableView> AttachableInRange;
+        public event Action<IAttachable> AttachableInRange;
         
         private void OnTriggerEnter(Collider other)
         {
             if (other.TryGetComponent(out AttachZone attachZone))
             {
-                var otherAttachable = other.GetComponentInParent<IAttachableView>();
+                var otherAttachable = other.GetComponentInParent<IAttachable>();
                 AttachableInRange?.Invoke(otherAttachable);
             }
         }

@@ -2,6 +2,6 @@
 {
     public interface IAttachmentController
     {
-        void CreateTree(IAttachableView parent);
+        void CreateTree(IAttachable parent);
     }
 }

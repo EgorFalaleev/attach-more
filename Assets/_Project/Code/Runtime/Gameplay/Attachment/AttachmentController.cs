@@ -19,14 +19,14 @@ namespace Runtime.Gameplay.Attachment
             _attachableCollisionsRegistry.OnValidAttachCollision += PerformAttachment;
         }
 
-        public void CreateTree(IAttachableView parent)
+        public void CreateTree(IAttachable parent)
         {
             var root = new AttachableNode();
             _attachableTree = new AttachableTree();
             _attachableTree.AddRoot(root, parent);
         }
 
-        private void PerformAttachment(IAttachableView parent, IAttachableView child)
+        private void PerformAttachment(IAttachable parent, IAttachable child)
         {
             if (_attachableTree == null)
                 return;
@@ -41,7 +41,7 @@ namespace Runtime.Gameplay.Attachment
             _attachableTree.AddToDictionaries(childNode, child);
         }
 
-        private bool TryFindValidAttachOffset(IAttachableView parent, IAttachableView child, out Vector3 childOffset)
+        private bool TryFindValidAttachOffset(IAttachable parent, IAttachable child, out Vector3 childOffset)
         {
             var direction = child.Transform.position - parent.Transform.position;
             var parentSize = parent.AttachmentRadius;

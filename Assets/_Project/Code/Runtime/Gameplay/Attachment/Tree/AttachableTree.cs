@@ -4,8 +4,8 @@ namespace Runtime.Gameplay.Attachment.Tree
 {
     public class AttachableTree
     {
-        private readonly Dictionary<AttachableNode,IAttachableView> _nodeToAttachable;
-        private readonly Dictionary<IAttachableView,AttachableNode> _attachableToNode;
+        private readonly Dictionary<AttachableNode,IAttachable> _nodeToAttachable;
+        private readonly Dictionary<IAttachable,AttachableNode> _attachableToNode;
         
         private AttachableNode _root;
      
@@ -13,23 +13,23 @@ namespace Runtime.Gameplay.Attachment.Tree
         
         public AttachableTree()
         {
-            _nodeToAttachable = new Dictionary<AttachableNode, IAttachableView>();
-            _attachableToNode = new Dictionary<IAttachableView, AttachableNode>();
+            _nodeToAttachable = new Dictionary<AttachableNode, IAttachable>();
+            _attachableToNode = new Dictionary<IAttachable, AttachableNode>();
         }
 
-        public void AddRoot(AttachableNode root, IAttachableView rootView)
+        public void AddRoot(AttachableNode root, IAttachable attachable)
         {
             _root = root;
-            AddToDictionaries(root, rootView);
+            AddToDictionaries(root, attachable);
         }
 
-        public void AddToDictionaries(AttachableNode node, IAttachableView view)
+        public void AddToDictionaries(AttachableNode node, IAttachable attachable)
         {
-            if (node == null || view == null)
+            if (node == null || attachable == null)
                 return;
 
-            _nodeToAttachable[node] = view;
-            _attachableToNode[view] = node;
+            _nodeToAttachable[node] = attachable;
+            _attachableToNode[attachable] = node;
         }
 
         public void RemoveNode(AttachableNode node)
@@ -48,13 +48,13 @@ namespace Runtime.Gameplay.Attachment.Tree
             RemoveNodeFromParentList(node);
         }
 
-        public void RemoveAttachable(IAttachableView attachableView)
+        public void RemoveAttachable(IAttachable attachable)
         {
-            if (attachableView == null)
+            if (attachable == null)
                 return;
 
-            var node = FindNodeByAttachable(attachableView);
-            RemoveFromDictionaries(node, attachableView);
+            var node = FindNodeByAttachable(attachable);
+            RemoveFromDictionaries(node, attachable);
             
             foreach (var child in node.Children)
             {
@@ -64,22 +64,22 @@ namespace Runtime.Gameplay.Attachment.Tree
             RemoveNodeFromParentList(node);
         }
 
-        public IAttachableView FindAttachableByNode(AttachableNode node)
+        public IAttachable FindAttachableByNode(AttachableNode node)
         {
             _nodeToAttachable.TryGetValue(node, out var attachable);
             return attachable;
         }
 
-        public AttachableNode FindNodeByAttachable(IAttachableView attachableView)
+        public AttachableNode FindNodeByAttachable(IAttachable attachable)
         {
-            _attachableToNode.TryGetValue(attachableView, out var node);
+            _attachableToNode.TryGetValue(attachable, out var node);
             return node;
         }
 
-        private void RemoveFromDictionaries(AttachableNode node, IAttachableView attachableView)
+        private void RemoveFromDictionaries(AttachableNode node, IAttachable attachable)
         {
             _nodeToAttachable.Remove(node);
-            _attachableToNode.Remove(attachableView);
+            _attachableToNode.Remove(attachable);
         }
 
         private void RemoveNodeFromParentList(AttachableNode node)

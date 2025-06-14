@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Runtime.Gameplay.Attachment
 {
-    public interface IAttachableView
+    public interface IAttachable
     {
         Transform Transform { get; }
         UniTask Attach(Transform parent, Vector3 offset);

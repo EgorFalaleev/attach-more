@@ -4,8 +4,8 @@ namespace Runtime.Gameplay.Attachment.Provider
 {
     public interface IAttachableProvider
     {
-        IEnumerable<IAttachableView> Attachables { get; }
-        void AddAttachable(IAttachableView attachableView);
-        void RemoveAttachable(IAttachableView attachableView);
+        IEnumerable<IAttachable> Attachables { get; }
+        void AddAttachable(IAttachable attachable);
+        void RemoveAttachable(IAttachable attachable);
     }
 }

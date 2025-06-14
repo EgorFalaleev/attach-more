@@ -6,7 +6,7 @@ using Zenject;
 
 namespace Runtime.Gameplay.Player
 {
-    public class Player : MonoBehaviour, IAttachableView
+    public class Player : MonoBehaviour, IAttachable
     {
         [SerializeField] private float _speed;
         [SerializeField] private AttachZone _attachZone;

@@ -4,6 +4,6 @@ namespace Runtime.Gameplay.Attachment.Collisions
 {
     public interface IAttachableCollisionsRegistry
     {
-        event Action<IAttachableView, IAttachableView> OnValidAttachCollision;
+        event Action<IAttachable, IAttachable> OnValidAttachCollision;
     }
 }

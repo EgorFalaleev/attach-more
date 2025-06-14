@@ -2,7 +2,7 @@
 
 namespace Runtime.Gameplay.Enemies
 {
-    public class EnemyView : MonoBehaviour
+    public class Enemy : MonoBehaviour
     {
         [SerializeField] private float _speed = 3f;
         private Transform _target;

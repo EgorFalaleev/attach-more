@@ -19,11 +19,11 @@ namespace Runtime.Gameplay.Enemies.Factory
             _instantiator = instantiator;
         }
 
-        public EnemyView CreateEnemy(Vector3 spawnPoint)
+        public Enemy CreateEnemy(Vector3 spawnPoint)
         {
-            var prefab = _assetProvider.Load<EnemyView>(Paths.Enemy);
+            var prefab = _assetProvider.Load<Enemy>(Paths.Enemy);
             
-            var view = _instantiator.InstantiatePrefabForComponent<EnemyView>(prefab, spawnPoint, Quaternion.identity, null);
+            var view = _instantiator.InstantiatePrefabForComponent<Enemy>(prefab, spawnPoint, Quaternion.identity, null);
             view.Initialize(_playerProvider.Player.transform);
             return view;
         }
