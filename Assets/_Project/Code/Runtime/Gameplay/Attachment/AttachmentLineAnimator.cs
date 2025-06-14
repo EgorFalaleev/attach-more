@@ -8,6 +8,7 @@ namespace Runtime.Gameplay.Attachment
     {
         [SerializeField] private LineRenderer _lineRenderer;
         [SerializeField] private float _animationDuration = 1f;
+        [SerializeField] private Color _attachedLineColor = Color.cyan;
 
         private Transform _lineStartPoint;
         private Transform _lineEndPoint;
@@ -47,7 +48,7 @@ namespace Runtime.Gameplay.Attachment
             }
             
             _lineRenderer.SetPosition(1, endPoint.position);
-            _lineRenderer.startColor = _lineRenderer.endColor = Color.cyan;
+            _lineRenderer.startColor = _lineRenderer.endColor = _attachedLineColor;
 
             _animationFinished = true;
         }
